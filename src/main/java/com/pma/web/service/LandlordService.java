@@ -8,11 +8,11 @@ public interface LandlordService {
 
     public Landlord addLandlord(Landlord landlord);
 
-    public Landlord getLandlord(Integer id);
+    public Landlord getLandlord(Integer landlordid);
 
-    public void removeLandlord(Integer id);
+    public void removeLandlord(Integer landlordid);
 
-    public void updateLandlord(Integer id, Landlord landlord);
+    public Landlord updateLandlord(Integer landlordid, Landlord landlord);
 
     public List<Landlord> getAllLandlords();
 }

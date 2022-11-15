@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,26 +18,43 @@ public class LandlordServiceImpl implements LandlordService{
 
     @Override
     public Landlord addLandlord(Landlord landlord) {
-        return null;
+    	return landlordRepository.save(landlord);
     }
 
     @Override
-    public Landlord getLandlord(Integer id) {
-        return null;
+    public Landlord getLandlord(Integer landlordid) {
+    	Optional<Landlord> landlordList = this.landlordRepository.findByLandLordId(landlordid);
+		if (landlordList.isPresent()) {
+			return landlordList.get();
+		} 
+		return null;
     }
 
     @Override
-    public void removeLandlord(Integer id) {
+    public void removeLandlord(Integer landlordid) {
+    	Optional<Landlord> landlordList = this.landlordRepository.findByLandLordId(landlordid);
 
+		if (landlordList.isPresent()) {
+			this.landlordRepository.delete(landlordList.get());
+		} 
     }
 
     @Override
-    public void updateLandlord(Integer id, Landlord landlord) {
-
+    public Landlord updateLandlord(Integer landlordid, Landlord landlord) {
+    	Optional<Landlord> landlordList = this.landlordRepository.findByLandLordId(landlordid);
+		if (landlordList.isPresent()) {
+			Landlord LandLordUpdate = landlordList.get();
+			LandLordUpdate.setName(landlord.getName());
+			LandLordUpdate.setEmailId(landlord.getEmailId());
+			LandLordUpdate.setPhoneNo(landlord.getPhoneNo());
+			landlordRepository.save(LandLordUpdate);
+			return LandLordUpdate;
+		}
+		return null;
     }
 
     @Override
     public List<Landlord> getAllLandlords() {
-        return null;
+    	return (List<Landlord>) landlordRepository.findAll();
     }
 }
