@@ -11,13 +11,13 @@ public class Landlord {
 	@Column(name = "Landlord_ID")
     private Integer landlordId;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "Email_ID")
+    @Column(name = "email_id")
     private String emailid;
 
-    @Column(name = "Phone_NO")
+    @Column(name = "phone_no")
     private String phoneno;
 
 	public Landlord() {
