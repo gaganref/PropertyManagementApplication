@@ -23,7 +23,7 @@ public class LandlordServiceImpl implements LandlordService{
 
     @Override
     public Landlord getLandlord(Integer landlordid) {
-    	Optional<Landlord> landlordList = this.landlordRepository.findByLandLordId(landlordid);
+    	Optional<Landlord> landlordList = this.landlordRepository.findByLandlordId(landlordid);
 		if (landlordList.isPresent()) {
 			return landlordList.get();
 		} 
@@ -32,7 +32,7 @@ public class LandlordServiceImpl implements LandlordService{
 
     @Override
     public void removeLandlord(Integer landlordid) {
-    	Optional<Landlord> landlordList = this.landlordRepository.findByLandLordId(landlordid);
+    	Optional<Landlord> landlordList = this.landlordRepository.findByLandlordId(landlordid);
 
 		if (landlordList.isPresent()) {
 			this.landlordRepository.delete(landlordList.get());
@@ -41,7 +41,7 @@ public class LandlordServiceImpl implements LandlordService{
 
     @Override
     public Landlord updateLandlord(Integer landlordid, Landlord landlord) {
-    	Optional<Landlord> landlordList = this.landlordRepository.findByLandLordId(landlordid);
+    	Optional<Landlord> landlordList = this.landlordRepository.findByLandlordId(landlordid);
 		if (landlordList.isPresent()) {
 			Landlord LandLordUpdate = landlordList.get();
 			LandLordUpdate.setName(landlord.getName());

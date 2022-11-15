@@ -24,7 +24,7 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public void removeAddress(int addressId) {
 		// TODO Auto-generated method stub
-		Optional<Address> addressList = this.addressRepository.findByaddressId(addressId);
+		Optional<Address> addressList = this.addressRepository.findByAddressId(addressId);
 
 		if (addressList.isPresent()) {
 			this.addressRepository.delete(addressList.get());
@@ -33,12 +33,12 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public List<Address> getAllAddress(String postcode) {
-		return (List<Address>) addressRepository.findBypostCode(postcode);
+		return (List<Address>) addressRepository.findByPostcode(postcode);
 	}
 
 	@Override
 	public Address getAddress(int addressId) {
-		Optional<Address> addressList = this.addressRepository.findByaddressId(addressId);
+		Optional<Address> addressList = this.addressRepository.findByAddressId(addressId);
 		if (addressList.isPresent()) {
 			return addressList.get();
 		} 
@@ -47,7 +47,7 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address updateAddress(Address address, int addressId) {
-		Optional<Address> addresslist = this.addressRepository.findByaddressId(addressId);
+		Optional<Address> addresslist = this.addressRepository.findByAddressId(addressId);
 		if (addresslist.isPresent()) {
 			Address addressUpdate = addresslist.get();
 			addressUpdate.setFlatNo(address.getFlatNo());

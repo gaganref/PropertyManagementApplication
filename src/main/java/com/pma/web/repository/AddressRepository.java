@@ -11,8 +11,8 @@ import com.pma.web.model.Address;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 	
-	Optional<Address> findByaddressId(int addressId);
+	Optional<Address> findByAddressId(int addressId);
 
-	List<Address> findBypostCode(String postcode);
+	List<Address> findByPostcode(String postcode);
 
 }
