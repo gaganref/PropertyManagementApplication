@@ -1,9 +1,24 @@
 package com.pma.web.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.pma.web.model.TenancyInfo;
+import com.pma.web.model.Tenant;
 
-@Service
-@Transactional
-public class TenancyInfoService {
+import java.util.List;
+
+public interface TenancyInfoService {
+
+    public TenancyInfo addTenancyInfo(TenancyInfo tenancyInfo);
+
+    public TenancyInfo getTenancyInfo(long id);
+
+    public void removeTenancyInfo(long id);
+
+    public void updateTenancyInfo(long id, TenancyInfo tenancyInfo);
+
+    public List<TenancyInfo> getAllTenancyInfos();
+
+    public List<TenancyInfo> getTenancyInfoByHouse(long houseID);
+
+    public List<TenancyInfo> getTenancyInfoByTenant(long tenantID);
+
 }
