@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS "House";
-DROP TABLE IF EXISTS "Landlord";
-DROP TABLE IF EXISTS "Tenant";
-DROP TABLE IF EXISTS "TenancyInfo";
-DROP TABLE IF EXISTS "Address";
+DROP TABLE IF EXISTS "house";
+DROP TABLE IF EXISTS "landlord";
+DROP TABLE IF EXISTS "tenant";
+DROP TABLE IF EXISTS "tenancy_info";
+DROP TABLE IF EXISTS "address";
 
 -- Table Address Start
-CREATE TABLE IF NOT EXISTS "Address"
+CREATE TABLE IF NOT EXISTS "address"
 (
-    "Address_ID"
-        integer
+    "address_id"
+        bigint
         NOT NULL
         GENERATED ALWAYS AS IDENTITY
             (
@@ -18,36 +18,36 @@ CREATE TABLE IF NOT EXISTS "Address"
             MAXVALUE 2147483647
             CACHE 1
             ),
-    "Flat_NO"
+    "flat_no"
         integer,
-    "House_NO"
+    "house_no"
         integer
         NOT NULL,
-    "Street"
+    "street"
         text
         NOT NULL,
-    "City"
+    "city"
         text
         NOT NULL,
     "postcode"
         text
         NOT NULL,
 
-    CONSTRAINT "Address_pkey"
-    PRIMARY KEY ("Address_ID")
+    CONSTRAINT "address_pkey"
+    PRIMARY KEY ("address_id")
 );
 
-ALTER TABLE IF EXISTS "Address"
+ALTER TABLE IF EXISTS "address"
     OWNER to postgres;
 
 -- Table Address Ends
 
 
 -- Table Landlord starts
-CREATE TABLE IF NOT EXISTS "Landlord"
+CREATE TABLE IF NOT EXISTS "landlord"
 (
-    "Landlord_ID"
-        integer
+    "landlord_id"
+        bigint
         NOT NULL
         GENERATED ALWAYS AS IDENTITY
             (
@@ -57,30 +57,30 @@ CREATE TABLE IF NOT EXISTS "Landlord"
             MAXVALUE 2147483647
             CACHE 1
             ),
-    "Name"
+    "name"
         text
         NOT NULL,
-    "Email_ID"
+    "email_id"
         text
         NOT NULL,
-    "Phone_NO"
+    "phone_no"
         text
         NOT NULL,
 
-    CONSTRAINT "Landlord_pkey"
-        PRIMARY KEY ("Landlord_ID")
+    CONSTRAINT "landlord_pkey"
+        PRIMARY KEY ("landlord_id")
 );
 
-ALTER TABLE IF EXISTS "Landlord"
+ALTER TABLE IF EXISTS "landlord"
     OWNER to postgres;
 
 -- Table Landlord Ends
 
 -- Table Tenant starts
-CREATE TABLE IF NOT EXISTS "Tenant"
+CREATE TABLE IF NOT EXISTS "tenant"
 (
-    "Tenant_ID"
-        integer
+    "tenant_id"
+        bigint
         NOT NULL
         GENERATED ALWAYS AS IDENTITY
             (
@@ -91,37 +91,37 @@ CREATE TABLE IF NOT EXISTS "Tenant"
             CACHE 1
             ),
 
-    "Name"
+    "name"
         text
         NOT NULL,
-    "Email_ID"
+    "email_id"
         text
         NOT NULL,
-    "Phone_NO"
+    "phone_no"
         text
         NOT NULL,
-    "Previous_Address"
-        integer,
+    "previous_address"
+        bigint,
 
-    CONSTRAINT "Tenant_pkey"
-        PRIMARY KEY ("Tenant_ID"),
+    CONSTRAINT "tenant_pkey"
+        PRIMARY KEY ("tenant_id"),
 
-    CONSTRAINT "Tenant_Address_fkey"
-        FOREIGN KEY ("Previous_Address")
-            REFERENCES "Address" ("Address_ID")
+    CONSTRAINT "tenant_address_fkey"
+        FOREIGN KEY ("previous_address")
+            REFERENCES "address" ("address_id")
 );
 
-ALTER TABLE IF EXISTS "Tenant"
+ALTER TABLE IF EXISTS "tenant"
     OWNER to postgres;
 
 -- Table Tenant Ends
 
 
 -- Table House Starts
-CREATE TABLE IF NOT EXISTS "House"
+CREATE TABLE IF NOT EXISTS "house"
 (
-    "House_ID"
-        integer
+    "house_id"
+        bigint
         NOT NULL
         GENERATED ALWAYS AS IDENTITY
             (
@@ -131,11 +131,11 @@ CREATE TABLE IF NOT EXISTS "House"
             MAXVALUE 2147483647
             CACHE 1
             ),
-    "Landlord"
-        integer
+    "landlord"
+        bigint
         NOT NULL,
-    "Address"
-        integer
+    "address"
+        bigint
         NOT NULL,
     "no_of_rooms"
         integer,
@@ -143,19 +143,19 @@ CREATE TABLE IF NOT EXISTS "House"
         float4
         NOT NULL,
 
-    CONSTRAINT "House_pkey"
-    PRIMARY KEY ("House_ID"),
+    CONSTRAINT "house_pkey"
+    PRIMARY KEY ("house_id"),
 
-    CONSTRAINT "House_Landlord_fkey"
-    FOREIGN KEY ("Landlord")
-    REFERENCES "Landlord" ("Landlord_ID"),
+    CONSTRAINT "house_landlord_fkey"
+    FOREIGN KEY ("landlord")
+    REFERENCES "landlord" ("landlord_id"),
 
-    CONSTRAINT "House_Address_fkey"
-    FOREIGN KEY ("Address")
-    REFERENCES "Address" ("Address_ID")
+    CONSTRAINT "house_address_fkey"
+    FOREIGN KEY ("address")
+    REFERENCES "address" ("address_id")
 );
 
-ALTER TABLE IF EXISTS "House"
+ALTER TABLE IF EXISTS "house"
     OWNER to postgres;
 
 -- Table House Ends
@@ -163,10 +163,10 @@ ALTER TABLE IF EXISTS "House"
 
 
 -- Table TenancyInfo starts
-CREATE TABLE IF NOT EXISTS "TenancyInfo"
+CREATE TABLE IF NOT EXISTS "tenancy_info"
 (
-    "TenancyInfo_ID"
-        integer
+    "tenancy_info_id"
+        bigint
         NOT NULL
         GENERATED ALWAYS AS IDENTITY
             (
@@ -176,32 +176,32 @@ CREATE TABLE IF NOT EXISTS "TenancyInfo"
             MAXVALUE 2147483647
             CACHE 1
             ),
-    "House"
-        integer
+    "house"
+        bigint
         NOT NULL,
-    "Tenant"
-        integer
+    "tenant"
+        bigint
         NOT NULL,
-    "Start_Date"
+    "start_date"
         date
         NOT NULL,
-    "End_Date"
+    "end_date"
         date
         NOT NULL,
 
-    CONSTRAINT "TenancyInfo_pkey"
-    PRIMARY KEY ("TenancyInfo_ID"),
+    CONSTRAINT "tenancy_info_pkey"
+    PRIMARY KEY ("tenancy_info_id"),
 
-    CONSTRAINT "TenancyInfo_House_fkey"
-    FOREIGN KEY ("House")
-    REFERENCES "House" ("House_ID"),
+    CONSTRAINT "tenancy_info_house_fkey"
+    FOREIGN KEY ("house")
+    REFERENCES "house" ("house_id"),
 
-    CONSTRAINT "TenancyInfo_Tenant_fkey"
-    FOREIGN KEY ("Tenant")
-    REFERENCES "Tenant" ("Tenant_ID")
+    CONSTRAINT "tenancy_info_tenant_fkey"
+    FOREIGN KEY ("tenant")
+    REFERENCES "tenant" ("tenant_id")
 );
 
-ALTER TABLE IF EXISTS "TenancyInfo"
+ALTER TABLE IF EXISTS "tenancy_info"
     OWNER to postgres;
 
 -- Table TenancyInfo Ends
