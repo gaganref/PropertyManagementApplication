@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,26 +18,44 @@ public class TenantServiceImpl implements TenantService {
 
     @Override
     public Tenant addTenant(Tenant tenant) {
-        return null;
+    	return tenantRepository.save(tenant);
     }
 
     @Override
-    public Tenant getTenant(long id) {
-        return null;
+    public Tenant getTenant(long tenantId) {
+    	Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+		if (tenantList.isPresent()) {
+			return tenantList.get();
+		} 
+		return null;
     }
 
     @Override
-    public void removeTenant(long id) {
+    public void removeTenant(long tenantId) {
+    	Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+		if (tenantList.isPresent()) {
+			this.tenantRepository.delete(tenantList.get());
+		} 
 
     }
 
     @Override
-    public void updateTenant(long id, Tenant tenant) {
-
+    public Tenant updateTenant(long tenantId, Tenant tenant) {
+    	Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+		if (tenantList.isPresent()) {
+			Tenant TenantUpdate = tenantList.get();
+			TenantUpdate.setName(tenant.getName());
+			TenantUpdate.setEmailID(tenant.getEmailID());
+			TenantUpdate.setPhoneNO(tenant.getPhoneNO());
+			TenantUpdate.setPreviousAddress(tenant.getPreviousAddress());
+			tenantRepository.save(TenantUpdate);
+			return TenantUpdate;
+		}
+		return null;
     }
 
     @Override
     public List<Tenant> getAllTenants() {
-        return null;
+    	return (List<Tenant>) tenantRepository.findAll();
     }
 }

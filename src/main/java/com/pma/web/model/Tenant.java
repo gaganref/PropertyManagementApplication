@@ -7,20 +7,20 @@ import javax.persistence.*;
 public class Tenant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Tenant_ID")
+    @Column(name = "tenant_id")
     private long tenantID;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "Email_ID")
+    @Column(name = "email_id")
     private String emailID;
 
-    @Column(name = "Phone_NO")
+    @Column(name = "phone_no")
     private String phoneNO;
 
-    @Column(name = "Previous_Address")
-    private String previousAddress;
+    @Column(name = "previous_address")
+    private long previousAddress;
 
     public long getTenantID() {
         return tenantID;
@@ -54,11 +54,11 @@ public class Tenant {
         this.phoneNO = phoneNO;
     }
 
-    public String getPreviousAddress() {
+    public long getPreviousAddress() {
         return previousAddress;
     }
 
-    public void setPreviousAddress(String previousAddress) {
+    public void setPreviousAddress(long previousAddress) {
         this.previousAddress = previousAddress;
     }
 

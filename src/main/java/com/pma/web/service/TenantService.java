@@ -7,11 +7,11 @@ import java.util.List;
 public interface TenantService {
     public Tenant addTenant(Tenant tenant);
 
-    public Tenant getTenant(long id);
+    public Tenant getTenant(long tenantId);
 
-    public void removeTenant(long id);
+    public void removeTenant(long tenantId);
 
-    public void updateTenant(long id, Tenant tenant);
+    public Tenant updateTenant(long tenantId, Tenant tenant);
 
     public List<Tenant> getAllTenants();
 
