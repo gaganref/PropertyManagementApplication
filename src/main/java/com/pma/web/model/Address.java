@@ -2,7 +2,6 @@ package com.pma.web.model;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "Address")
 public class Address {

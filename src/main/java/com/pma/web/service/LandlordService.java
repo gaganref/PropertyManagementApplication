@@ -1,9 +1,18 @@
 package com.pma.web.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.pma.web.model.Landlord;
 
-@Service
-@Transactional
-public class LandlordService {
+import java.util.List;
+
+public interface LandlordService {
+
+    public Landlord addLandlord(Landlord landlord);
+
+    public Landlord getLandlord(Integer landlordid);
+
+    public void removeLandlord(Integer landlordid);
+
+    public Landlord updateLandlord(Integer landlordid, Landlord landlord);
+
+    public List<Landlord> getAllLandlords();
 }
