@@ -24,12 +24,12 @@ public class AddressController {
     private AddressServiceImpl addressService;
 
     @PostMapping("/add")
-    public ResponseEntity<Address> addCar(@RequestBody Address address) {
+    public ResponseEntity<Address> addAddress(@RequestBody Address address) {
         return ResponseEntity.ok().body(this.addressService.addAddress(address));
     }
 
     @GetMapping("/{AddressID}")
-    public ResponseEntity<Address> getHouse(@PathVariable("AddressID") int addressId) {
+    public ResponseEntity<Address> getAddress(@PathVariable("AddressID") int addressId) {
         return ResponseEntity.ok().body(addressService.getAddress(addressId));
     }
     
