@@ -61,7 +61,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public void updateHouse(long id, House house) {
+    public House updateHouse(long id, House house) {
         try {
             Optional<House> outHouse = houseRepository.findByHouseID(id);
             if(outHouse.isPresent()){
@@ -71,6 +71,7 @@ public class HouseServiceImpl implements HouseService {
                 houseToUpdate.setAddress(house.getAddress());
                 houseToUpdate.setNoOfRooms(house.getNoOfRooms());
                 houseToUpdate.set_pppm(house.get_pppm());
+                return outHouse.get();
             }
             else{
                 throw new ModelUpdateException("Couldn't update house of id: " + id);
@@ -81,11 +82,12 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public void updateCost(long id, float pppm) {
+    public House updateCost(long id, float pppm) {
         try {
             Optional<House> outHouse = houseRepository.findByHouseID(id);
             if(outHouse.isPresent()){
                 outHouse.get().set_pppm(pppm);
+                return outHouse.get();
             }
             else{
                 throw new ModelUpdateException("Couldn't update house of id: " + id);
@@ -96,11 +98,12 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public void updateRooms(long id, Integer no_of_rooms) {
+    public House updateRooms(long id, Integer no_of_rooms) {
         try {
             Optional<House> outHouse = houseRepository.findByHouseID(id);
             if(outHouse.isPresent()){
                 outHouse.get().setNoOfRooms(no_of_rooms);
+                return outHouse.get();
             }
             else{
                 throw new ModelUpdateException("Couldn't update house of id: " + id);

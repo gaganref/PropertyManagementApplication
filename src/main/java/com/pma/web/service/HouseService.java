@@ -12,11 +12,11 @@ public interface HouseService {
 
     public void removeHouse(long id);
 
-    public void updateHouse(long id, House house);
+    public House updateHouse(long id, House house);
 
-    public void updateCost(long id, float pppm);
+    public House updateCost(long id, float pppm);
 
-    public void updateRooms(long id, Integer no_of_rooms);
+    public House updateRooms(long id, Integer no_of_rooms);
 
     public List<House> getAllHouses();
 
