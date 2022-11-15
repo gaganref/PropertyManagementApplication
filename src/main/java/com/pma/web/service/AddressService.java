@@ -1,9 +1,18 @@
 package com.pma.web.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.pma.web.model.Address;
+import java.util.List;
 
-@Service
-@Transactional
-public class AddressService {
+public interface AddressService {
+	
+	public Address addAddress(Address address);
+
+	public void removeAddress(int addressId);
+
+	public List<Address> getAllAddress(String postcode);
+	
+	public Address getAddress(int addressId);
+	
+	public Address updateAddress(Address address, int addressId);
+	
 }
