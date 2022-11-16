@@ -39,12 +39,12 @@ public class LandlordController {
 		return ResponseEntity.ok().body(landlordService.getAllLandlords());
 	}
     
-	@PutMapping("/{landlordid}")
+	@PutMapping("/{landlordid}/update")
 	public ResponseEntity<Landlord> updatelandlord(@RequestBody Landlord landlord, @PathVariable("landlordid")int landlordid) {
 		return ResponseEntity.ok().body(this.landlordService.updateLandlord(landlordid, landlord));
 	}
 	
-    @DeleteMapping("/{landlordid}")
+    @DeleteMapping("/{landlordid}/delete")
 	public HttpStatus removeLandlord(@PathVariable("landlordid") int landlordid) {
 		this.landlordService.removeLandlord(landlordid);
 		return HttpStatus.OK;
