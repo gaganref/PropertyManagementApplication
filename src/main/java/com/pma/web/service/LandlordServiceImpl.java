@@ -85,7 +85,7 @@ public class LandlordServiceImpl implements LandlordService{
     	try {
     		return (List<Landlord>) landlordRepository.findAll();
         } catch (Exception e) {
-            throw new ModelEmptyListException("Error retrieving houses... please try again");
+            throw new ModelEmptyListException("Error retrieving Landlord... please try again");
         }
     }
 }
