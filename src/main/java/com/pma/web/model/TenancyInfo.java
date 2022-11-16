@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "TenancyInfo")
+@Table(name = "tenancy_info")
 public class TenancyInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TenancyInfo_ID")
+    @Column(name = "tenancy_info_id")
     private long tenancyInfoID;
 
-    @Column(name = "House")
+    @Column(name = "house")
     private Integer house;
 
-    @Column(name = "Tenant")
+    @Column(name = "tenant")
     private Integer tenant;
 
-    @Column(name = "Start_Date")
+    @Column(name = "start_date")
     private LocalDate startDate;
 
-    @Column(name = "End_Date")
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     public long getTenancyInfoID() {
