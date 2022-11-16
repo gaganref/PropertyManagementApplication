@@ -33,7 +33,7 @@ public class AddressController {
         return ResponseEntity.ok().body(addressService.getAddress(addressId));
     }
     
-    @GetMapping("/{PostCode}")
+    @GetMapping("/byPostcode/{PostCode}")
 	public ResponseEntity<List<Address>> getAddressByPostCode(@PathVariable("PostCode") String postcode) {
 		return ResponseEntity.ok().body(addressService.getAllAddress(postcode));
 	}
@@ -43,7 +43,7 @@ public class AddressController {
 		return ResponseEntity.ok().body(this.addressService.updateAddress(address, addressId));
 	}
 	
-    @DeleteMapping("/{addressid}")
+    @DeleteMapping("/{addressid}/delete")
 	public HttpStatus removeAddress(@PathVariable("addressid") int addressId) {
 		this.addressService.removeAddress(addressId);
 		return HttpStatus.OK;
