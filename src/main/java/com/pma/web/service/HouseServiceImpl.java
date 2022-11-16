@@ -71,7 +71,7 @@ public class HouseServiceImpl implements HouseService {
                 houseToUpdate.setAddress(house.getAddress());
                 houseToUpdate.setNoOfRooms(house.getNoOfRooms());
                 houseToUpdate.set_pppm(house.get_pppm());
-                return outHouse.get();
+                return houseToUpdate;
             }
             else{
                 throw new ModelUpdateException("Couldn't update house of id: " + id);

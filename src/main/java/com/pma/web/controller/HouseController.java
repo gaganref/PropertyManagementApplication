@@ -2,6 +2,7 @@ package com.pma.web.controller;
 
 
 import com.pma.web.model.House;
+import com.pma.web.model.TenancyInfo;
 import com.pma.web.service.HouseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,12 +50,27 @@ public class HouseController {
         return ResponseEntity.ok().body(houseService.getHouseByRooms(min, max));
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<House> addHouse(@RequestBody House house) {
+        return ResponseEntity.ok().body(this.houseService.addHouse(house));
+    }
+
+    @PutMapping("/{houseID}/update")
+    public ResponseEntity<House> updateHouse(@PathVariable("houseID") long houseID, @RequestBody House house) {
+        return ResponseEntity.ok().body(this.houseService.updateHouse(houseID, house));
+    }
+
     @PutMapping("/{houseID}/update/cost/{pppm}")
     public ResponseEntity<House> updateCost(@PathVariable("houseID") long houseID, @PathVariable("pppm") float pppm) {
         return ResponseEntity.ok().body(this.houseService.updateCost(houseID, pppm));
     }
 
-    @DeleteMapping("/delete/{houseID}")
+    @PutMapping("/{houseID}/update/rooms/{rooms}")
+    public ResponseEntity<House> updateRooms(@PathVariable("houseID") long houseID, @PathVariable("rooms") Integer rooms) {
+        return ResponseEntity.ok().body(this.houseService.updateRooms(houseID, rooms));
+    }
+
+    @DeleteMapping("/{houseID}/delete")
     public HttpStatus removeCar(@PathVariable("houseID") long houseID) {
         this.houseService.removeHouse(houseID);
         return HttpStatus.OK;
