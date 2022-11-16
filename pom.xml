@@ -14,7 +14,10 @@
     <name>PropertyManagementApplication</name>
     <description>PropertyManagementApplication</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>19</java.version>
+
+        <maven.compiler.source>3.8.1</maven.compiler.source>
+        <maven.compiler.target>3.8.1</maven.compiler.target>
     </properties>
     <dependencies>
 
