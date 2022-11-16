@@ -1,5 +1,9 @@
 package com.pma.web.service;
 
+import com.pma.web.exception.ModelAddException;
+import com.pma.web.exception.ModelEmptyListException;
+import com.pma.web.exception.ModelNotFoundException;
+import com.pma.web.exception.ModelUpdateException;
 import com.pma.web.model.Tenant;
 import com.pma.web.repository.TenantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,44 +22,70 @@ public class TenantServiceImpl implements TenantService {
 
     @Override
     public Tenant addTenant(Tenant tenant) {
-    	return tenantRepository.save(tenant);
+    	try {
+    		return tenantRepository.save(tenant);
+        } catch (Exception e) {
+            throw new ModelAddException("Couldn't add the model Tenant, please add the proper details");
+        }
     }
 
     @Override
     public Tenant getTenant(long tenantId) {
-    	Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
-		if (tenantList.isPresent()) {
-			return tenantList.get();
-		} 
-		return null;
+		try {
+			Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+			if (tenantList.isPresent()) {
+				return tenantList.get();
+			} 
+            else{
+                throw new ModelNotFoundException("Couldn't find the Tenant of id: " + tenantId);
+            }
+        } catch (Exception e) {
+            throw new ModelNotFoundException("Couldn't find the Tenant of id: " + tenantId);
+        }
     }
 
     @Override
-    public void removeTenant(long tenantId) {
-    	Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
-		if (tenantList.isPresent()) {
-			this.tenantRepository.delete(tenantList.get());
-		} 
-
+    public void removeTenant(long tenantId) { 
+		try {
+			Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+			if (tenantList.isPresent()) {
+				this.tenantRepository.delete(tenantList.get());
+			} 
+            else{
+                throw new ModelNotFoundException("Couldn't find the Tenant of id: " + tenantId);
+            }
+        } catch (Exception e) {
+            throw new ModelNotFoundException("Couldn't remove Tenant of id: " + tenantId + " as it is not present");
+        }
     }
 
     @Override
     public Tenant updateTenant(long tenantId, Tenant tenant) {
-    	Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
-		if (tenantList.isPresent()) {
-			Tenant TenantUpdate = tenantList.get();
-			TenantUpdate.setName(tenant.getName());
-			TenantUpdate.setEmailID(tenant.getEmailID());
-			TenantUpdate.setPhoneNO(tenant.getPhoneNO());
-			TenantUpdate.setPreviousAddress(tenant.getPreviousAddress());
-			tenantRepository.save(TenantUpdate);
-			return TenantUpdate;
-		}
-		return null;
+		try {
+			Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+			if (tenantList.isPresent()) {
+				Tenant TenantUpdate = tenantList.get();
+				TenantUpdate.setName(tenant.getName());
+				TenantUpdate.setEmailID(tenant.getEmailID());
+				TenantUpdate.setPhoneNO(tenant.getPhoneNO());
+				TenantUpdate.setPreviousAddress(tenant.getPreviousAddress());
+				tenantRepository.save(TenantUpdate);
+				return TenantUpdate;
+			}
+            else{
+                throw new ModelUpdateException("Couldn't update Tenant of id: " + tenantId);
+            }
+        } catch (Exception e) {
+            throw new ModelUpdateException("Couldn't update Tenant of id: " + tenantId + " as it is not present");
+        }
     }
 
     @Override
     public List<Tenant> getAllTenants() {
-    	return (List<Tenant>) tenantRepository.findAll();
+    	try {
+    		return (List<Tenant>) tenantRepository.findAll();
+        } catch (Exception e) {
+            throw new ModelEmptyListException("Error retrieving Tenants... please try again");
+        }
     }
 }

@@ -29,18 +29,18 @@ public class TenantController {
         return ResponseEntity.ok().body(this.tenantService.addTenant(tenant));
     }
 
-    @GetMapping("/{TenantId}")
+    @GetMapping("/getbyId/{TenantId}")
     public ResponseEntity<Tenant> getTenant(@PathVariable("TenantId") long tenantId) {
         return ResponseEntity.ok().body(tenantService.getTenant(tenantId));
     }
     
     
-	@PutMapping("/{TenantId}")
+	@PutMapping("/{TenantId}/update")
 	public ResponseEntity<Tenant> updateTenant(@RequestBody Tenant tenant, @PathVariable("TenantId") long tenantId) {
 		return ResponseEntity.ok().body(this.tenantService.updateTenant(tenantId, tenant));
 	}
 	
-    @DeleteMapping("/{TenantId}")
+    @DeleteMapping("/{TenantId}/delete")
 	public HttpStatus removeTenant(@PathVariable("TenantId") long tenantId) {
 		this.tenantService.removeTenant(tenantId);
 		return HttpStatus.OK;
