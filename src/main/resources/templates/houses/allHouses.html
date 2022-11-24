@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - PMA</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/default.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/house-cards.css}">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher" style="transform: rotate(15deg);"></i></div>
+            <div class="sidebar-brand-text mx-3"><span>PMA</span></div>
+        </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a class="nav-link active" href="houses.html"><i class="fas fa-home"></i><span>Houses</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="tenancies.html"><i class="fas fa-table"></i><span>Tenancies</span></a><a class="nav-link" href="tenants.html"><i class="fas fa-users"></i><span>Tenants</span></a><a class="nav-link" href="landlords.html"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="404.html"><i class="fas fa-exclamation-circle"></i><span>Page Not Found</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <div class="container-fluid">
+                <h3 class="text-dark mb-4" style="margin-top: 18px;">Houses</h3>
+            </div>
+            <section>
+                <div class="container" style="padding-top: 24px;">
+                    <div class="row">
+                        <div class="col-md-4" th:each="house : ${houses}">
+                            <div class="blog-card blog-card-blog">
+                                <div class="blog-card-image"><img class="img-fluid img" th:src="@{/assets/img/place-holders/house-place-holder-1.jpg}" width="263" height="195"></div>
+                                <div class="blog-table">
+                                    <h6 class="blog-category blog-text-success"><i class="fas fa-pound-sign"></i><span style="font-weight:bold" th:text="' ' + ${house.get_pppm()}"></span></h6>
+                                    <h4 class="blog-card-caption" style="margin: -31px 0px 8px;margin-bottom: -6px;margin-top: -26px;"></h4>
+                                    <p class="blog-card-description" style="margin-top: 40px;margin-bottom: 20px;">Charles Street, LE1 1GS</p>
+                                    <div class="ftr">
+                                        <div class="info">
+                                            <div class="stats"><i class="fas fa-arrow-circle-right" style="margin-right: 3px;"></i><span>Info</span></div>
+                                        </div>
+                                        <div class="beds"><i class="fas fa-bed" style="margin-right: 3px;"></i><span th:text="${house.getNoOfRooms()}"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © PMA 2022</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+<script th:href="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:href="@{/assets/js/bs-init.js}"></script>
+<script th:href="@{/assets/js/theme.js}"></script>
+</body>
+
+</html>
