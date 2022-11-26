@@ -2,10 +2,8 @@ package com.pma.web.controller;
 
 
 import com.pma.web.model.House;
-import com.pma.web.model.TenancyInfo;
 import com.pma.web.service.HouseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,9 +76,17 @@ public class HouseController {
         return ResponseEntity.ok().body(this.houseService.updateRooms(houseID, rooms));
     }
 
-    @DeleteMapping("/{houseID}/delete")
-    public HttpStatus removeCar(@PathVariable("houseID") long houseID) {
-        this.houseService.removeHouse(houseID);
-        return HttpStatus.OK;
+//    @DeleteMapping("/{houseID}/delete")
+//    public HttpStatus removeCar(@PathVariable("houseID") long houseID) {
+//        this.houseService.removeHouse(houseID);
+//        return HttpStatus.OK;
+//    }
+
+    @GetMapping("/{houseID}/delete")
+    public String removeHouse(@PathVariable("houseID") long houseID, Model model) {
+//        this.houseService.removeHouse(houseID);
+//        System.out.println("Works");
+        return "redirect:/";
     }
+
 }

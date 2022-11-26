@@ -91,9 +91,9 @@ p {
   float: right;
   position: relative;
   cursor: pointer;
-  transform: scale(1.15,1.15);
-  -webkit-transform: scale(1.15,1.15);
-  -moz-transform: scale(1.15,1.15);
+  transform: scale(1.2,1.2);
+  -webkit-transform: scale(1.2,1.2);
+  -moz-transform: scale(1.2,1.2);
   transition-timing-function: ease-in;
 }
 
