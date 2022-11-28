@@ -31,16 +31,16 @@ public class AddressTests {
 
 	@Test
 	public void getAllAddressTest() {
-		List<Address> LandLord_list = new ArrayList<Address>();
+		List<Address> Addresss_list = new ArrayList<Address>();
 		Address Address_values_1 = new Address(12,34,"Lanchester","Lanchester","DH7 0BL");
 		Address Address_values_2 = new Address(45,54,"Lanchester","Lanchester","DH7 0EE");
 		Address Address_values_3 = new Address(32,14,"London","London","NW10");
 
-		LandLord_list.add(Address_values_1);
-		LandLord_list.add(Address_values_2);
-		LandLord_list.add(Address_values_3);
+		Addresss_list.add(Address_values_1);
+		Addresss_list.add(Address_values_2);
+		Addresss_list.add(Address_values_3);
 
-		when(iaddressrepository.findAll()).thenReturn(LandLord_list);
+		when(iaddressrepository.findAll()).thenReturn(Addresss_list);
 
 		List<Address> check_car_list = iaddressserviceimpl.getAllAddress("NW10");
 
@@ -51,10 +51,10 @@ public class AddressTests {
 	
 	@Test
 	public void addAddresssTest() {
-		Address landlord = new Address(12,34,"Lanchester","Lanchester","DH7 0BL");
-		when(iaddressrepository.save(landlord)).thenReturn(landlord);
+		Address Addresss = new Address(12,34,"Lanchester","Lanchester","DH7 0BL");
+		when(iaddressrepository.save(Addresss)).thenReturn(Addresss);
 
-		Address Address_values = iaddressserviceimpl.addAddress(landlord);
+		Address Address_values = iaddressserviceimpl.addAddress(Addresss);
 
 		assertEquals("12", Address_values.getFlatNo());
 		assertEquals("34", Address_values.getHouseNo());
@@ -69,7 +69,7 @@ public class AddressTests {
 	}
 	
 	@Test
-	public void updateCarTest() {
+	public void updateAddressTest() {
 		List<Address> Address_List = List.of(new Address(12,34,"Lanchester","Lanchester","DH7 0BL"));
 
 		Address Address_values = new Address(12,34,"Lanchester","Lanchester city","DH7 0BL");
