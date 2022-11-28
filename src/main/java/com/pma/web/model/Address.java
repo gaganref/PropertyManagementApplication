@@ -12,7 +12,7 @@ public class Address {
     private Integer addressId;
 
     @Column(name = "flat_no")
-    private Integer flatNo = null;
+    private Integer flatNo;
 
     @Column(name = "house_no")
     private Integer houseNo;
@@ -41,7 +41,7 @@ public class Address {
 		this.postcode = postcode;
 	}
 
-	public int getFlatNo() {
+	public Integer getFlatNo() {
 		return flatNo;
 	}
 
@@ -49,7 +49,7 @@ public class Address {
 		this.flatNo = flatNo;
 	}
 
-	public int getHouseNo() {
+	public Integer getHouseNo() {
 		return houseNo;
 	}
 

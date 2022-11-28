@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Profile - PMA</title>
+  <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+  <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome-all.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/default.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/house-cards.css}">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+  <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+      <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher" style="transform: rotate(15deg);"></i></div>
+      <div class="sidebar-brand-text mx-3"><span>PMA</span></div>
+    </a>
+      <hr class="sidebar-divider my-0">
+      <ul class="navbar-nav text-light" id="accordionSidebar">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+        <li class="nav-item"><a class="nav-link active" href="houses.html"><i class="fas fa-home"></i><span>Houses</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="tenancies.html"><i class="fas fa-table"></i><span>Tenancies</span></a><a class="nav-link" href="tenants.html"><i class="fas fa-users"></i><span>Tenants</span></a><a class="nav-link" href="landlords.html"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
+      </ul>
+      <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+    </div>
+  </nav>
+  <div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+      <div class="container-fluid">
+        <h3 class="text-dark mb-4" style="margin-top: 18px;">House Details</h3>
+      </div>
+
+
+      <section>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8 align-self-center">
+              <div class="blog-card blog-card-blog">
+                <div class="blog-table">
+                  <form action="#" th:action="@{/house/{houseID}/update(houseID=${house.houseID})}" th:object="${house}" method="post">
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <label for="_pppm" class="col-form-label">Name</label> <input type="text" th:field="*{_pppm}" class="form-control" id="_pppm" placeholder="_pppm">
+                        <span th:if="${#fields.hasErrors('_pppm')}" th:errors="*{_pppm}" class="text-danger"></span>
+                      </div>
+<!--                      <div class="form-group col-md-8">-->
+<!--                        <label for="email" class="col-form-label">Email</label> <input type="text" th:field="*{noOfRooms}" class="form-control" id="email" placeholder="Email">-->
+<!--                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{noOfRooms}" class="text-danger"></span>-->
+<!--                      </div>-->
+<!--                      <div class="form-group col-md-8">-->
+<!--                        <label for="phoneNo" class="col-form-label">Phone No</label> -->
+<!--                        <input type="text" th:field="*{address}" class="form-control" id="phoneNo" placeholder="phoneNo"> -->
+<!--                        <span th:if="${#fields.hasErrors('phoneNo')}" th:errors="phoneNo" class="text-danger"></span>-->
+<!--                      </div>-->
+
+                      <div class="form-group col-md-8">
+                        <input type="submit" class="btn btn-primary" value="Update Student">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+    </div>
+    <footer class="bg-white sticky-footer">
+      <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © PMA 2022</span></div>
+      </div>
+    </footer>
+  </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/bs-init.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/theme.js}"></script>
+
+
+</body>
+
+</html>

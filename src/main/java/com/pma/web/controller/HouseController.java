@@ -2,14 +2,14 @@ package com.pma.web.controller;
 
 
 import com.pma.web.model.House;
+import com.pma.web.service.AddressServiceImpl;
 import com.pma.web.service.HouseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/house")
@@ -18,6 +18,9 @@ public class HouseController {
     @Autowired
     private HouseServiceImpl houseService;
 
+    @Autowired
+    private AddressServiceImpl addressService;
+
 
     @GetMapping("/all")
     public String getAllHouse(Model model) {
@@ -25,35 +28,38 @@ public class HouseController {
         return "houses/allHouses";
     }
 
-//    @GetMapping("/all")
-//    public ResponseEntity<List<House>> getAllHouse() {
-//        return ResponseEntity.ok().body(houseService.getAllHouses());
-//    }
-
     @GetMapping("/{houseID}")
-    public ResponseEntity<House> getHouse(@PathVariable("houseID") long houseID) {
-        return ResponseEntity.ok().body(houseService.getHouse(houseID));
+    public String getHouse(@PathVariable("houseID") long houseID, Model model) {
+        House house = houseService.getHouse(houseID);
+        model.addAttribute("house", house);
+        model.addAttribute("address", addressService.getAddress(house.getAddress()));
+        return "houses/house";
     }
+
 
     @GetMapping("/byLandlord/{landlordID}")
-    public ResponseEntity<List<House>> getHouseByLandlord(@PathVariable("landlordID") long landlordID) {
-        //TODO
-        return ResponseEntity.ok().body(houseService.getAllHouses());
+    public String getHouseByLandlord(@PathVariable("landlordID") long landlordID, Model model) {
+        model.addAttribute("houses", houseService.getHouseByLandlord(landlordID));
+        return "houses/allHouses";
     }
 
+    //TODO:
     @GetMapping("/byPostcode/{postcode}")
-    public ResponseEntity<List<House>> getHouseByPostCode(@PathVariable("postcode") String postcode) {
-        return ResponseEntity.ok().body(houseService.getAllHouses());
+    public String getHouseByPostCode(@PathVariable("postcode") String postcode, Model model) {
+        model.addAttribute("houses", houseService.getAllHouses());
+        return "houses/allHouses";
     }
 
     @GetMapping("/byCost/{min}/{max}")
-    public ResponseEntity<List<House>> getHouseByCost(@PathVariable("min") float min, @PathVariable("max") float max) {
-        return ResponseEntity.ok().body(houseService.getHouseByCost(min, max));
+    public String getHouseByCost(@PathVariable("min") float min, @PathVariable("max") float max, Model model) {
+        model.addAttribute("houses", houseService.getHouseByCost(min, max));
+        return "houses/allHouses";
     }
 
     @GetMapping("/byRooms/{min}/{max}")
-    public ResponseEntity<List<House>> getHouseByRooms(@PathVariable("min") Integer min, @PathVariable("max") Integer max) {
-        return ResponseEntity.ok().body(houseService.getHouseByRooms(min, max));
+    public String getHouseByRooms(@PathVariable("min") Integer min, @PathVariable("max") Integer max, Model model) {
+        model.addAttribute("houses", houseService.getHouseByRooms(min, max));
+        return "houses/allHouses";
     }
 
     @PostMapping("/add")
@@ -61,26 +67,25 @@ public class HouseController {
         return ResponseEntity.ok().body(this.houseService.addHouse(house));
     }
 
-    @PutMapping("/{houseID}/update")
-    public ResponseEntity<House> updateHouse(@PathVariable("houseID") long houseID, @RequestBody House house) {
-        return ResponseEntity.ok().body(this.houseService.updateHouse(houseID, house));
+    @GetMapping("/{houseID}/edit")
+    public String showHouseUpdateForm(@PathVariable("houseID") long houseID, Model model) {
+        House house = houseService.getHouse(houseID);
+        model.addAttribute("house", house);
+        model.addAttribute("address", addressService.getAddress(house.getAddress()));
+        return "houses/update";
     }
 
-    @PutMapping("/{houseID}/update/cost/{pppm}")
-    public ResponseEntity<House> updateCost(@PathVariable("houseID") long houseID, @PathVariable("pppm") float pppm) {
-        return ResponseEntity.ok().body(this.houseService.updateCost(houseID, pppm));
-    }
+    @PostMapping("/{houseID}/update")
+    public String updateHouse(@PathVariable("houseID") long houseID, @RequestBody House house,
+                              BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            house.setHouseID(houseID);
+            return "houses/update";
+        }
 
-    @PutMapping("/{houseID}/update/rooms/{rooms}")
-    public ResponseEntity<House> updateRooms(@PathVariable("houseID") long houseID, @PathVariable("rooms") Integer rooms) {
-        return ResponseEntity.ok().body(this.houseService.updateRooms(houseID, rooms));
+        houseService.updateHouse(houseID, house);
+        return "redirect:/house/all";
     }
-
-//    @DeleteMapping("/{houseID}/delete")
-//    public HttpStatus removeCar(@PathVariable("houseID") long houseID) {
-//        this.houseService.removeHouse(houseID);
-//        return HttpStatus.OK;
-//    }
 
     @GetMapping("/{houseID}/delete")
     public String removeHouse(@PathVariable("houseID") long houseID, Model model) {
