@@ -42,9 +42,9 @@ public class AddressTests {
 
 		when(iaddressrepository.findAll()).thenReturn(Addresss_list);
 
-		List<Address> check_car_list = iaddressserviceimpl.getAllAddress("NW10");
+		List<Address> check_Address_list = iaddressserviceimpl.getAllAddress("NW10");
 
-		assertEquals(1, check_car_list.size());
+		assertEquals(1, check_Address_list.size());
 		verify(iaddressrepository, times(1)).findAll();
 
 	}
