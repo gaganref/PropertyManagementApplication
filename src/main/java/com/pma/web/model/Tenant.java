@@ -21,6 +21,20 @@ public class Tenant {
 
     @Column(name = "previous_address")
     private long previousAddress;
+    
+    public Tenant() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Tenant(String name, String emailid,
+			String phoneno,long previousAddress) {
+		super();
+		this.name = name;
+		this.emailID = emailid;
+		this.phoneNO = phoneno;
+		this.previousAddress = previousAddress;
+	}
 
     public long getTenantID() {
         return tenantID;
