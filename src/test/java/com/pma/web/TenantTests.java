@@ -33,20 +33,20 @@ public class TenantTests {
 
 	@Test
 	public void getAllTenantsTest() {
-		List<Tenant> LandLord_list = new ArrayList<Tenant>();
+		List<Tenant> Tenant_list = new ArrayList<Tenant>();
 		Tenant Tenant_values_1 = new Tenant("varshini","varshini@gmail.com","9999988888",10L);
 		Tenant Tenant_values_2 = new Tenant("varshini2","varshini2@gmail.com","9999988889",20L);
 		Tenant Tenant_values_3 = new Tenant("varshini3","varshini3@gmail.com","9999988880",30L);
 
-		LandLord_list.add(Tenant_values_1);
-		LandLord_list.add(Tenant_values_2);
-		LandLord_list.add(Tenant_values_3);
+		Tenant_list.add(Tenant_values_1);
+		Tenant_list.add(Tenant_values_2);
+		Tenant_list.add(Tenant_values_3);
 
-		when(iTenantRepository.findAll()).thenReturn(LandLord_list);
+		when(iTenantRepository.findAll()).thenReturn(Tenant_list);
 
-		List<Tenant> check_LandLord_list = iTenantServiceImpl.getAllTenants();
+		List<Tenant> check_Tenant_list = iTenantServiceImpl.getAllTenants();
 
-		assertEquals(3, check_LandLord_list.size());
+		assertEquals(3, check_Tenant_list.size());
 		verify(iTenantRepository, times(1)).findAll();
 
 	}
