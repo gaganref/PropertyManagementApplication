@@ -33,13 +33,13 @@ public class LandlordTests {
 	@Test
 	public void getAllLandlordsTest() {
 		List<Landlord> LandLord_list = new ArrayList<Landlord>();
-		Landlord car_values_1 = new Landlord("Swetha","Swetha@gmail.com","9989876680");
-		Landlord car_values_2 = new Landlord("Akhil","Akhil@gmail.com","9989876681");
-		Landlord car_values_3 = new Landlord("gagan","gagan@gmail.com","9989876682");
+		Landlord LandLord_values_1 = new Landlord("Swetha","Swetha@gmail.com","9989876680");
+		Landlord LandLord_values_2 = new Landlord("Akhil","Akhil@gmail.com","9989876681");
+		Landlord LandLord_values_3 = new Landlord("gagan","gagan@gmail.com","9989876682");
 
-		LandLord_list.add(car_values_1);
-		LandLord_list.add(car_values_2);
-		LandLord_list.add(car_values_3);
+		LandLord_list.add(LandLord_values_1);
+		LandLord_list.add(LandLord_values_2);
+		LandLord_list.add(LandLord_values_3);
 
 		when(ilandlordrepository.findAll()).thenReturn(LandLord_list);
 
@@ -70,11 +70,11 @@ public class LandlordTests {
 	
 	@Test
 	public void updateCarTest() {
-		Optional<Landlord> car_values = Optional.of(new Landlord("Swetha","Swetha@gmail.com","9989876680"));
+		Optional<Landlord> LandLord_list = Optional.of(new Landlord("Swetha","Swetha@gmail.com","9989876680"));
 
 		Landlord LandLord_values = new Landlord("Swetha","Swetha85@gmail.com","9989876680");
 
-		when(ilandlordrepository.findByLandlordId(10)).thenReturn(car_values);
+		when(ilandlordrepository.findByLandlordId(10)).thenReturn(LandLord_list);
 
 		ilandlordserviceimpl.updateLandlord(10, LandLord_values);
 
