@@ -43,9 +43,9 @@ public class LandlordTests {
 
 		when(ilandlordrepository.findAll()).thenReturn(LandLord_list);
 
-		List<Landlord> check_car_list = ilandlordserviceimpl.getAllLandlords();
+		List<Landlord> check_Landlord_list = ilandlordserviceimpl.getAllLandlords();
 
-		assertEquals(3, check_car_list.size());
+		assertEquals(3, check_Landlord_list.size());
 		verify(ilandlordrepository, times(1)).findAll();
 
 	}
@@ -64,12 +64,12 @@ public class LandlordTests {
 	}
 	
 	@Test
-	public void removeCarTest() {
+	public void removeLandlordTest() {
 		verify(ilandlordrepository, never()).delete(any(Landlord.class));
 	}
 	
 	@Test
-	public void updateCarTest() {
+	public void updateLandlordTest() {
 		Optional<Landlord> LandLord_list = Optional.of(new Landlord("Swetha","Swetha@gmail.com","9989876680"));
 
 		Landlord LandLord_values = new Landlord("Swetha","Swetha85@gmail.com","9989876680");
