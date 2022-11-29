@@ -23,6 +23,19 @@ public class TenancyInfo {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    public TenancyInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public TenancyInfo(int house,int tenant,LocalDate startDate,LocalDate endDate) {
+		super();
+		this.house = house;
+		this.tenant = tenant;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
     public long getTenancyInfoID() {
         return tenancyInfoID;
     }
