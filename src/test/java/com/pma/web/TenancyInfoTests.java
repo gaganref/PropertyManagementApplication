@@ -94,4 +94,76 @@ public class TenancyInfoTests {
 		assertEquals(start_date, TenancyInfo_values.getStartDate());
 		assertEquals(new_end_date, TenancyInfo_values.getEndDate());
 	}
+	
+	@Test
+	public void getTenancyInfoByHouseTest() {
+		List<TenancyInfo> TenancyInfo_list = new ArrayList<TenancyInfo>();
+		LocalDate start_date = LocalDate.of(2020, 10, 11);
+		LocalDate start_date2 = LocalDate.of(2018, 10, 11);
+		LocalDate end_date = LocalDate.of(2022, 10, 12);
+		LocalDate end_date2 = LocalDate.of(2021, 10, 12);
+		TenancyInfo TenancyInfo_1 = new TenancyInfo(122,344,start_date,end_date);
+		TenancyInfo TenancyInfo_2 = new TenancyInfo(188,3745,start_date2,end_date);
+		TenancyInfo TenancyInfo_3 = new TenancyInfo(876,8944,start_date2,end_date2);
+
+		TenancyInfo_list.add(TenancyInfo_1);
+		TenancyInfo_list.add(TenancyInfo_2);
+		TenancyInfo_list.add(TenancyInfo_3);
+
+		when(iTenancyInfoRepository.findAll()).thenReturn(TenancyInfo_list);
+
+		List<TenancyInfo> check_TenancyInfo_list = iTenancyInfoServiceImpl.getTenancyInfoByHouse(188);
+
+		assertEquals(1, check_TenancyInfo_list.size());
+		verify(iTenancyInfoRepository, times(1)).findAll();
+
+	}
+	
+	@Test
+	public void getTenancyInfoByTenantTest() {
+		List<TenancyInfo> TenancyInfo_list = new ArrayList<TenancyInfo>();
+		LocalDate start_date = LocalDate.of(2020, 10, 11);
+		LocalDate start_date2 = LocalDate.of(2018, 10, 11);
+		LocalDate end_date = LocalDate.of(2022, 10, 12);
+		LocalDate end_date2 = LocalDate.of(2021, 10, 12);
+		TenancyInfo TenancyInfo_1 = new TenancyInfo(122,344,start_date,end_date);
+		TenancyInfo TenancyInfo_2 = new TenancyInfo(188,3745,start_date2,end_date);
+		TenancyInfo TenancyInfo_3 = new TenancyInfo(876,8944,start_date2,end_date2);
+
+		TenancyInfo_list.add(TenancyInfo_1);
+		TenancyInfo_list.add(TenancyInfo_2);
+		TenancyInfo_list.add(TenancyInfo_3);
+
+		when(iTenancyInfoRepository.findAll()).thenReturn(TenancyInfo_list);
+
+		List<TenancyInfo> check_TenancyInfo_list = iTenancyInfoServiceImpl.getTenancyInfoByTenant(10);
+
+		assertEquals(1, check_TenancyInfo_list.size());
+		verify(iTenancyInfoRepository, times(1)).findAll();
+
+	}
+	
+	@Test
+	public void getTenancyInfoByStartDateTest() {
+		List<TenancyInfo> TenancyInfo_list = new ArrayList<TenancyInfo>();
+		LocalDate start_date = LocalDate.of(2020, 10, 11);
+		LocalDate start_date2 = LocalDate.of(2018, 10, 11);
+		LocalDate end_date = LocalDate.of(2022, 10, 12);
+		LocalDate end_date2 = LocalDate.of(2021, 10, 12);
+		TenancyInfo TenancyInfo_1 = new TenancyInfo(122,344,start_date,end_date);
+		TenancyInfo TenancyInfo_2 = new TenancyInfo(188,3745,start_date2,end_date);
+		TenancyInfo TenancyInfo_3 = new TenancyInfo(876,8944,start_date2,end_date2);
+
+		TenancyInfo_list.add(TenancyInfo_1);
+		TenancyInfo_list.add(TenancyInfo_2);
+		TenancyInfo_list.add(TenancyInfo_3);
+
+		when(iTenancyInfoRepository.findAll()).thenReturn(TenancyInfo_list);
+		LocalDate start_date3 = LocalDate.of(2017, 10, 11);
+		List<TenancyInfo> check_TenancyInfo_list = iTenancyInfoServiceImpl.getTenancyInfoByStartDate(start_date3,end_date);
+
+		assertEquals(2, check_TenancyInfo_list.size());
+		verify(iTenancyInfoRepository, times(1)).findAll();
+
+	}
 }
