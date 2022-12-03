@@ -56,8 +56,8 @@ public class AddressTests {
 
 		Address Address_values = iaddressserviceimpl.addAddress(Addresss);
 
-		assertEquals("12", Address_values.getFlatNo());
-		assertEquals("34", Address_values.getHouseNo());
+		assertEquals(12, Address_values.getFlatNo().intValue());
+		assertEquals(34, Address_values.getHouseNo().intValue());
 		assertEquals("Lanchester", Address_values.getCity());
 		assertEquals("DH7 0BL", Address_values.getPostcode());
 
