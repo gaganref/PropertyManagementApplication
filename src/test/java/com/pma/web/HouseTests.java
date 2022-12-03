@@ -73,11 +73,11 @@ public class HouseTests {
 	
 	@Test
 	public void updateHouseTest() {
-		List<House> TenancyInfo_List = List.of(new House(15,56,10,1600));
+		List<House> HouseInfo_List = List.of(new House(15,56,10,1600));
 
 		House House_values = new House(15,56,8,2600);
 
-		when(iHouseRepository.findByLandlord(15)).thenReturn(TenancyInfo_List);
+		when(iHouseRepository.findByLandlord(15)).thenReturn(HouseInfo_List);
 
 		iHouseServiceImpl.updateHouse(10, House_values);
 
@@ -86,4 +86,41 @@ public class HouseTests {
 		assertEquals("8", House_values.getNoOfRooms());
 		assertEquals("2600", House_values.get_pppm());
 	}
+	
+	@Test
+	public void getHouseByCostTest() {
+		List<House> House_list = new ArrayList<House>();
+		House House_values_1 = new House(45,11,2,4800);
+		House House_values_2 = new House(15,56,10,1600);
+		House House_values_3 = new House(10,32,4,2300);
+		
+		House_list.add(House_values_1);
+		House_list.add(House_values_2);
+		House_list.add(House_values_3);
+
+		when(iHouseRepository.findAll()).thenReturn(House_list);
+
+		List<House> check_House_list = iHouseServiceImpl.getHouseByCost(1700,6000);
+
+		assertEquals(2, check_House_list.size());
+	}
+	
+	@Test
+	public void getHouseByRoomsTest() {
+		List<House> House_list = new ArrayList<House>();
+		House House_values_1 = new House(45,11,2,4800);
+		House House_values_2 = new House(15,56,10,1600);
+		House House_values_3 = new House(10,32,4,2300);
+		
+		House_list.add(House_values_1);
+		House_list.add(House_values_2);
+		House_list.add(House_values_3);
+
+		when(iHouseRepository.findAll()).thenReturn(House_list);
+
+		List<House> check_House_list = iHouseServiceImpl.getHouseByRooms(1,15);
+
+		assertEquals(3, check_House_list.size());
+	}
+
 }
