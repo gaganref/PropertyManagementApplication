@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface LandlordRepository extends JpaRepository<Landlord, Long> {
 	
-	Optional<Landlord> findByLandlordId(int landlordId);
+	Optional<Landlord> findByLandlordId(long landlordId);
 
 }

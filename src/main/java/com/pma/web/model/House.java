@@ -1,5 +1,9 @@
 package com.pma.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -15,8 +19,13 @@ public class House {
     @Column(name = "house_id")
     private long houseID;
 
-    @Column(name = "landlord")
-    private Integer landlord;
+//    @Column(name = "landlord")
+//    private Integer landlord;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "landlord", referencedColumnName = "landlord_id")
+    @JsonIgnoreProperties("houses")
+    private Landlord landlord;
 
     @Column(name = "no_of_rooms")
     @NotNull(message = "No of Rooms cannot be null.")
@@ -40,7 +49,7 @@ public class House {
         super();
     }
 
-    public House(Integer landlord, Address address, Integer noOfRooms, BigDecimal cost) {
+    public House(Landlord landlord, Address address, Integer noOfRooms, BigDecimal cost) {
         super();
 
         this.landlord = landlord;
@@ -57,11 +66,11 @@ public class House {
         this.houseID = houseID;
     }
 
-    public Integer getLandlord() {
+    public Landlord getLandlord() {
         return landlord;
     }
 
-    public void setLandlord(Integer landlord) {
+    public void setLandlord(Landlord landlord) {
         this.landlord = landlord;
     }
 

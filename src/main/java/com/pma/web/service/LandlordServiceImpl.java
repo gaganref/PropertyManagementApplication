@@ -30,7 +30,7 @@ public class LandlordServiceImpl implements LandlordService{
     }
 
     @Override
-    public Landlord getLandlord(Integer landlordid) {
+    public Landlord getLandlord(long landlordid) {
 		try {
 			Optional<Landlord> landlordList = this.landlordRepository.findByLandlordId(landlordid);
 			if (landlordList.isPresent()) {
@@ -45,7 +45,7 @@ public class LandlordServiceImpl implements LandlordService{
     }
 
     @Override
-    public void removeLandlord(Integer landlordid) {
+    public void removeLandlord(long landlordid) {
     	
 		try {
 			Optional<Landlord> landlordList = this.landlordRepository.findByLandlordId(landlordid);
@@ -61,7 +61,7 @@ public class LandlordServiceImpl implements LandlordService{
     }
 
     @Override
-    public Landlord updateLandlord(Integer landlordid, Landlord landlord) {
+    public Landlord updateLandlord(long landlordid, Landlord landlord) {
 		try {
 			Optional<Landlord> landlordList = this.landlordRepository.findByLandlordId(landlordid);
 			if (landlordList.isPresent()) {

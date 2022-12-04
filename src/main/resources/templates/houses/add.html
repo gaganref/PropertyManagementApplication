@@ -47,9 +47,10 @@
                                     <form action="#" th:action="@{/house/add}" th:object="${house}" method="post">
                                         <div class="row">
                                             <div class="form-group col-md-8">
-                                                <label for="landlord" class="col-form-label">Landlord</label>
-                                                <input type="text" th:field="*{landlord}" class="form-control" id="landlord" placeholder="0">
-                                                <span th:if="${#fields.hasErrors('landlord')}" th:errors="*{landlord}" class="text-danger"></span>
+                                                <label for="dropDownList" class="col-form-label">Select Landlord</label>
+                                                <select th:field="*{landlord}" class="form-control" id="dropDownList">
+                                                    <option th:each="option : ${landlords}" th:value="${option.getLandlordId()}" th:text="${option.toString()}"></option>
+                                                </select>
                                             </div>
                                             <div class="form-group col-md-8">
                                                 <label for="noOfRooms" class="col-form-label">No of Rooms</label>

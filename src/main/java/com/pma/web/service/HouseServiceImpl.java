@@ -125,19 +125,20 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public List<House> getHouseByLandlord(long landlordID) {
-        try {
-            List<House> outHouseList = new ArrayList<House>();
-            List<House> houseList = getAllHouses();
-
-            houseList.stream().forEach(house ->{
-                if(house.getLandlord() == landlordID){
-                    outHouseList.add(house);
-                }
-            });
-            return outHouseList;
-        } catch (Exception e) {
-            throw new ModelEmptyListException("Error retrieving houses... please try again");
-        }
+//        try {
+//            List<House> outHouseList = new ArrayList<House>();
+//            List<House> houseList = getAllHouses();
+//
+//            houseList.stream().forEach(house ->{
+//                if(house.getLandlord() == landlordID){
+//                    outHouseList.add(house);
+//                }
+//            });
+//            return outHouseList;
+//        } catch (Exception e) {
+//            throw new ModelEmptyListException("Error retrieving houses... please try again");
+//        }
+        return null;
     }
 
     @Override
