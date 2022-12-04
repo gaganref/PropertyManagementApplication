@@ -1,29 +1,36 @@
 package com.pma.web.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
-@Entity
-@Table(name = "Address")
+@Embeddable
 public class Address {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "address_id")
-    private Integer addressId;
 
-    @Column(name = "flat_no")
-    private Integer flatNo;
+    @Column(name = "flat_no", table = "Address")
+	@Min(value = 1)
+    @Max(value = 1200)
+	private Integer flatNo;
 
-    @Column(name = "house_no")
+    @Column(name = "house_no", table = "Address")
+	@NotNull(message = "House Number cannot be null.")
+	@Min(value = 1)
+	@Max(value = 3000)
     private Integer houseNo;
 
-    @Column(name = "street")
+    @Column(name = "street", table = "Address")
+	@NotNull(message = "Street cannot be null.")
+	@Size(min = 5, max = 250)
     private String street;
 
-    @Column(name = "city")
+    @Column(name = "city", table = "Address")
+	@NotNull(message = "City cannot be null.")
+	@Pattern(regexp = "^(?:[A-Za-z]{2,}(?:(\\.\\s|'s\\s|\\s?-\\s?|\\s)?(?=[A-Za-z]+))){1,2}(?:[A-Za-z]+)?$", message = "Enter a valid city name")
     private String city;
 
-    @Column(name = "postcode")
+    @Column(name = "postcode", table = "Address")
+	@NotNull(message = "Post code cannot be null.")
+	@Pattern(regexp = "^(([A-Z]{1,2}[0-9][A-Z0-9]?|ASCN|STHL|TDCU|BBND|[BFS]IQQ|PCRN|TKCA) ?[0-9][A-Z]{2}|BFPO ?[0-9]{1,4}|(KY[0-9]|MSR|VG|AI)[ -]?[0-9]{4}|[A-Z]{2} ?[0-9]{2}|GE ?CX|GIR ?0A{2}|SAN ?TA1)$", message = "Enter a valid postcode")
     private String postcode;
 	
 	public Address() {
@@ -45,7 +52,7 @@ public class Address {
 		return flatNo;
 	}
 
-	public void setFlatNo(int flatNo) {
+	public void setFlatNo(Integer flatNo) {
 		this.flatNo = flatNo;
 	}
 
@@ -53,7 +60,7 @@ public class Address {
 		return houseNo;
 	}
 
-	public void setHouseNo(int houseNo) {
+	public void setHouseNo(Integer houseNo) {
 		this.houseNo = houseNo;
 	}
 

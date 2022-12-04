@@ -4,6 +4,7 @@ import com.pma.web.model.House;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,6 @@ public interface HouseRepository extends JpaRepository<House, Long> {
 
     List<House> findHouseByNoOfRoomsBetween(Integer min, Integer max);
 
-    List<House> findHouseByPppmBetween(float min, float max);
-
+    List<House> findHouseByCostBetween(BigDecimal min, BigDecimal max);
 
 }

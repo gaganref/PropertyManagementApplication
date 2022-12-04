@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +71,7 @@ public class HouseServiceImpl implements HouseService {
                 houseToUpdate.setLandlord(house.getLandlord());
                 houseToUpdate.setAddress(house.getAddress());
                 houseToUpdate.setNoOfRooms(house.getNoOfRooms());
-                houseToUpdate.set_pppm(house.get_pppm());
+                houseToUpdate.setCost(house.getCost());
                 return houseToUpdate;
             }
             else{
@@ -82,11 +83,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House updateCost(long id, float pppm) {
+    public House updateCost(long id, BigDecimal cost) {
         try {
             Optional<House> outHouse = houseRepository.findByHouseID(id);
             if(outHouse.isPresent()){
-                outHouse.get().set_pppm(pppm);
+                outHouse.get().setCost(cost);
                 return outHouse.get();
             }
             else{
@@ -146,9 +147,9 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> getHouseByCost(float min, float max) {
+    public List<House> getHouseByCost(BigDecimal min, BigDecimal max) {
         try {
-            return houseRepository.findHouseByPppmBetween(min, max);
+            return houseRepository.findHouseByCostBetween(min, max);
         } catch (Exception e) {
             throw new ModelEmptyListException("No houses found between the given cost");
         }

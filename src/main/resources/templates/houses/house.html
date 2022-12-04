@@ -44,17 +44,13 @@
                     <div th:object="${house}">
                       <p th:text="'House ID: ' + ${house.getHouseID()}"></p>
                       <p th:text="'No of Rooms: ' + ${house.getNoOfRooms()}"></p>
-                      <p th:text="'Cost per person per month: ' + ${house.get_pppm()}"></p>
-                    </div>
-                    <p><b>Address: </b></p>
-                    <div th:object="${address}">
-                      <div th:if="${address.getFlatNo() != null}">
-                        <p th:text="'Flat No: ' + ${address.getFlatNo()}"></p>
-                      </div>
-                      <p th:text="'House No: ' + ${address.getHouseNo()}"></p>
-                      <p th:text="'Street: ' + ${address.getStreet()}"></p>
-                      <p th:text="'City: ' + ${address.getCity()}"></p>
-                      <p th:text="'Postcode: ' + ${address.getPostcode()}"></p>
+                      <p th:text="'Cost per person per month: ' + ${house.getCost()}"></p>
+                      <p><b>Address: </b></p>
+                      <p th:if="${house.address.getFlatNo() != null}" th:text="'Flat No: ' + ${house.address.getFlatNo()}"></p>
+                      <p th:text="'House No: ' + ${house.address.getHouseNo()}"></p>
+                      <p th:text="'Street: ' + ${house.address.getStreet()}"></p>
+                      <p th:text="'City: ' + ${house.address.getCity()}"></p>
+                      <p th:text="'Postcode: ' + ${house.address.getPostcode()}"></p>
                     </div>
                 </div>
               </div>

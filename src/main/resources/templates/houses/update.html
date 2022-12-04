@@ -34,7 +34,7 @@
   <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
       <div class="container-fluid">
-        <h3 class="text-dark mb-4" style="margin-top: 18px;">House Details</h3>
+        <h3 class="text-dark mb-4" style="margin-top: 18px;">Update House</h3>
       </div>
 
 
@@ -46,22 +46,52 @@
                 <div class="blog-table">
                   <form action="#" th:action="@{/house/{houseID}/update(houseID=${house.houseID})}" th:object="${house}" method="post">
                     <div class="row">
-                      <div class="form-group col-md-6">
-                        <label for="_pppm" class="col-form-label">Name</label> <input type="text" th:field="*{_pppm}" class="form-control" id="_pppm" placeholder="_pppm">
-                        <span th:if="${#fields.hasErrors('_pppm')}" th:errors="*{_pppm}" class="text-danger"></span>
+                      <div class="form-group col-md-8">
+                        <label for="landlord" class="col-form-label">Landlord</label>
+                        <input type="text" th:field="*{landlord}" class="form-control" id="landlord" placeholder="0">
+                        <span th:if="${#fields.hasErrors('landlord')}" th:errors="*{landlord}" class="text-danger"></span>
                       </div>
-<!--                      <div class="form-group col-md-8">-->
-<!--                        <label for="email" class="col-form-label">Email</label> <input type="text" th:field="*{noOfRooms}" class="form-control" id="email" placeholder="Email">-->
-<!--                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{noOfRooms}" class="text-danger"></span>-->
-<!--                      </div>-->
-<!--                      <div class="form-group col-md-8">-->
-<!--                        <label for="phoneNo" class="col-form-label">Phone No</label> -->
-<!--                        <input type="text" th:field="*{address}" class="form-control" id="phoneNo" placeholder="phoneNo"> -->
-<!--                        <span th:if="${#fields.hasErrors('phoneNo')}" th:errors="phoneNo" class="text-danger"></span>-->
-<!--                      </div>-->
+                      <div class="form-group col-md-8">
+                        <label for="noOfRooms" class="col-form-label">No of Rooms</label>
+                        <input type="text" th:field="*{noOfRooms}" class="form-control" id="noOfRooms" placeholder="0">
+                        <span th:if="${#fields.hasErrors('noOfRooms')}" th:errors="*{noOfRooms}" class="text-danger"></span>
+                      </div>
+                      <div class="form-group col-md-8">
+                        <label for="cost" class="col-form-label">Cost Per Person Per Month</label>
+                        <input type="text" th:field="*{cost}" class="form-control" id="cost" placeholder="100.0">
+                        <span th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}" class="text-danger"></span>
+                      </div>
+                      <div class="form-group col-md-8">
+                        <label for="flatNo" class="col-form-label">Flat No</label>
+                        <input type="text" th:field="*{address.flatNo}" class="form-control" id="flatNo" placeholder="15">
+                        <span th:if="${#fields.hasErrors('address.flatNo')}" th:errors="*{address.flatNo}" class="text-danger"></span>
+                      </div>
+                      <div class="form-group col-md-8">
+                        <label for="houseNo" class="col-form-label">House No</label>
+                        <input type="text" th:field="*{address.houseNo}" class="form-control" id="houseNo" placeholder="15">
+                        <span th:if="${#fields.hasErrors('address.houseNo')}" th:errors="*{address.houseNo}" class="text-danger"></span>
+                      </div>
+                      <div class="form-group col-md-8">
+                        <label for="street" class="col-form-label">Street</label>
+                        <input type="text" th:field="*{address.street}" class="form-control" id="street" placeholder="15">
+                        <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" class="text-danger"></span>
+                      </div>
+                      <div class="form-group col-md-8">
+                        <label for="city" class="col-form-label">City</label>
+                        <input type="text" th:field="*{address.city}" class="form-control" id="city" placeholder="15">
+                        <span th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}" class="text-danger"></span>
+                      </div>
+                      <div class="form-group col-md-8">
+                        <label for="postcode" class="col-form-label">Postcode</label>
+                        <input type="text" th:field="*{address.postcode}" class="form-control" id="postcode" placeholder="15">
+                        <span th:if="${#fields.hasErrors('address.postcode')}" th:errors="*{address.postcode}" class="text-danger"></span>
+                      </div>
 
                       <div class="form-group col-md-8">
-                        <input type="submit" class="btn btn-primary" value="Update Student">
+                        <a type="button" class="btn btn-secondary" style="float: right; margin-top: 30px; margin-left: 15px;"
+                           th:href="@{/house/all}"
+                        >Cancel</a>
+                        <input type="submit" class="btn btn-warning" style="float: right; margin-top: 30px;" value="Update House">
                       </div>
                     </div>
                   </form>

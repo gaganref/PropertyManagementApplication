@@ -31,7 +31,10 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
             <div class="container-fluid">
-                <h3 class="text-dark mb-4" style="margin-top: 18px;">Houses</h3>
+                <h2 class="text-dark mb-4" style="margin-top: 18px;">Houses</h2>
+                <a type="button" class="btn btn-success"
+                   th:href="@{/house/showAdd}"
+                >+ New House</a>
             </div>
 
 
@@ -45,7 +48,7 @@
                             <div class="blog-card blog-card-blog">
                                 <div class="blog-card-image"><img class="img-fluid img" th:src="@{/assets/img/place-holders/house-place-holder-1.jpg}" width="263" height="195"></div>
                                 <div class="blog-table">
-                                    <h6 class="blog-category blog-text-success"><i class="fas fa-pound-sign"></i><span style="font-weight:bold" th:text="' ' + ${house.get_pppm()}"></span></h6>
+                                    <h6 class="blog-category blog-text-success"><i class="fas fa-pound-sign"></i><span style="font-weight:bold" th:text="' ' + ${house.getCost()}"></span></h6>
                                     <h4 class="blog-card-caption" style="margin: -31px 0px 8px;margin-bottom: -6px;margin-top: -26px;"></h4>
                                     <p class="blog-card-description" style="margin-top: 40px;margin-bottom: 20px;">Charles Street, LE1 1GS</p>
                                     <div class="ftr">

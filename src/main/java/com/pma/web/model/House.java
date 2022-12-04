@@ -1,9 +1,13 @@
 package com.pma.web.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "house")
+@SecondaryTable(name = "address", pkJoinColumns = @PrimaryKeyJoinColumn(name = "address_id"))
 public class House {
 
     @Id
@@ -14,27 +18,35 @@ public class House {
     @Column(name = "landlord")
     private Integer landlord;
 
-    @Column(name = "address")
-    private Integer address;
-
     @Column(name = "no_of_rooms")
+    @NotNull(message = "No of Rooms cannot be null.")
+    @Min(value = 1)
+    @Max(value = 10)
     private Integer noOfRooms;
 
-    @Column(name = "pppm")
-    private float pppm;     // pppm = per person per month i.e rent per person per month
+    @Column(name = "cost")
+    @NotNull(message = "Cost cannot be null.")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer=4, fraction=2, message = "Numerical value should be less than 4 digits and the fractional value should be less than 2 digits")
+    private BigDecimal cost;     // pppm = per person per month i.e rent per person per month
+
+    @Embedded
+    @NotNull(message = "Address cannot be null")
+    @Valid
+    private Address address;
 
 
     public House() {
         super();
     }
 
-    public House(Integer landlord, Integer address, Integer noOfRooms, float pppm) {
+    public House(Integer landlord, Address address, Integer noOfRooms, BigDecimal cost) {
         super();
 
         this.landlord = landlord;
         this.address = address;
         this.noOfRooms = noOfRooms;
-        this.pppm = pppm;
+        this.cost = cost;
     }
 
     public long getHouseID() {
@@ -53,11 +65,11 @@ public class House {
         this.landlord = landlord;
     }
 
-    public Integer getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Integer address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -69,19 +81,19 @@ public class House {
         this.noOfRooms = noOfRooms;
     }
 
-    public float get_pppm() {
-        return pppm;
+    public BigDecimal getCost() {
+        return cost;
     }
 
-    public void set_pppm(float pppm) {
-        this.pppm = pppm;
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
     public String toString(){
         String outString = "";
         outString += "--- Info of House with ID " + houseID + " ---\n";
         outString += "No of Rooms: " + noOfRooms + "\n";
-        outString += "Cost per person per month: " + pppm + "\n";
+        outString += "Cost per person per month: " + cost + "\n";
         outString += "--- --- ---\n";
         return outString;
     }
