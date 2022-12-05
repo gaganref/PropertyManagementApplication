@@ -23,7 +23,7 @@ public class Landlord {
     @Column(name = "phone_no")
     private String phoneno;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "landlord", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "landlord", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JsonIgnoreProperties("landlord")
 	private Set<House> houses;
 

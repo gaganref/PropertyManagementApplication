@@ -31,20 +31,42 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
             <div class="container-fluid">
-                <h2 class="text-dark mb-4" style="margin-top: 18px;">Houses</h2>
-                <a type="button" class="btn btn-success"
-                   th:href="@{/house/showAdd}"
-                >+ New House</a>
+                <h1 class="text-dark mb-4" style="margin-top: 18px;">Houses</h1>
             </div>
 
 
             <section>
-                <div class="container" style="padding-top: 24px;">
+                <div class="container">
                     <div class="row">
-                        <tr th:if="${#lists.isEmpty(houses)}">
-                            <td colspan="7">No Records found. Add some...!</td>
-                        </tr>
-                        <div class="col-md-4" th:each="house: ${houses}">
+                        <div class="col-md-12">
+                            <div class="blog-card">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div style="padding: 15px; float: left;" th:if="${#lists.isEmpty(houses)}">
+                                            <h3>No Records found. Add some...!</h3>
+                                        </div>
+                                        <div style="padding: 15px; float: right;">
+                                            <a type="button" class="btn btn-secondary"
+                                               th:href="@{/house/all}"
+                                            >Show All Houses</a>
+                                        </div>
+                                        <div style="padding: 15px; float: right;">
+                                            <a type="button" class="btn btn-primary" th:data-filterID="'#filterModal'"
+                                               onclick="modal(this.getAttribute('data-filterID'));"
+                                            >Select Filters</a>
+                                        </div>
+                                        <div style="padding: 15px; float: right;">
+                                            <a type="button" class="btn btn-success"
+                                               th:href="@{/house/showAdd}"
+                                            >+ New House</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4" th:each="house: ${houses}"  style="padding-top: 24px;">
                             <div class="blog-card blog-card-blog">
                                 <div class="blog-card-image"><img class="img-fluid img" th:src="@{/assets/img/place-holders/house-place-holder-1.jpg}" width="263" height="195"></div>
                                 <div class="blog-table">
@@ -67,8 +89,10 @@
                                             </div>
                                         </a>
 
-                                        <a class="info" th:href="@{/house/{houseID}(houseID=${house.getHouseID()})}">
-                                            <div class="stats" data-toggle="tooltip" data-placement="bottom" title="View More Details">
+                                        <a class="info" th:data-viewID="'#viewModal'+${house.houseID}"
+                                           onclick="modal(this.getAttribute('data-viewID'));"
+                                        >
+                                            <div class="stats" data-toggle="tooltip" data-placement="bottom" title="View House Details">
                                                 <i class="fas fa-info-circle" style="margin-right: 5px;margin-left: 5px;"></i>
                                             </div>
                                         </a>
@@ -106,10 +130,135 @@
                                     </div>
                                 </div>
 
+                                <!-- View Modal -->
+                                <div class="modal" th:id="'viewModal'+${house.getHouseID()}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="viewModalLabel">House Details</h5>
+                                                <button type="button" class="close" aria-label="Close"
+                                                        th:data-viewID="'#viewModal'+${house.getHouseID()}"
+                                                        onclick="modal(this.getAttribute('data-viewID'));"
+                                                >
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p th:text="'House ID: ' + ${house.getHouseID()}"></p>
+                                                <p th:text="'No of Rooms: ' + ${house.getNoOfRooms()}"></p>
+                                                <p th:text="'Cost per person per month: ' + ${house.getCost()}"></p>
+                                                <p><b>Address: </b></p>
+                                                <p th:if="${house.address.getFlatNo() != null}" th:text="'Flat No: ' + ${house.address.getFlatNo()}"></p>
+                                                <p th:text="'House No: ' + ${house.address.getHouseNo()}"></p>
+                                                <p th:text="'Street: ' + ${house.address.getStreet()}"></p>
+                                                <p th:text="'City: ' + ${house.address.getCity()}"></p>
+                                                <p th:text="'Postcode: ' + ${house.address.getPostcode()}"></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"
+                                                        th:data-viewID="'#viewModal'+${house.getHouseID()}"
+                                                        onclick="modal(this.getAttribute('data-viewID'));"
+                                                >Ok</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
                     </div>
+
+                    <!-- Select Filters Modal -->
+                    <div class="modal" th:id="'filterModal'">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="filterModalLabel">Select Filter</h5>
+                                    <button type="button" class="close" aria-label="Close"
+                                            th:data-filterID="'#filterModal'"
+                                            onclick="modal(this.getAttribute('data-filterID'));"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-md-12" style="padding-bottom: 20px;">
+                                        <p><b>Filter Data by No of Rooms: </b></p>
+                                        <form class="row gy-2 gx-3 align-items-center" id="filterFormCost" name="filterFormCost" th:action="@{/house/byCost/}" method="get">
+                                            <div class="col-auto">
+                                                <label for="minCost">Minimum Cost:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="minCost" name="min">
+                                                        <option th:each="i : ${#numbers.sequence(0, 3000, 300)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==20}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label for="maxCost">Maximum Cost:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="maxCost" name="max">
+                                                        <option th:each="i : ${#numbers.sequence(0, 3000, 300)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==90}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <input type="submit" class="btn btn-primary" value="Filter by Cost">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p><b>Filter Data by Cost between: </b></p>
+                                        <form class="row gy-2 gx-3 align-items-center" id="filterFormRooms" name="filterFormCost" th:action="@{/house/byRooms/}" method="get">
+                                            <div class="col-auto">
+                                                <label for="minRooms">Minimum Rooms:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="minRooms" name="min">
+                                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==1}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label for="maxRooms">Maximum Rooms:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="maxRooms" name="max">
+                                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==1}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <input type="submit" class="btn btn-primary" value="Filter by Rooms">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary"
+                                            th:data-filterID="'#filterModal'"
+                                            onclick="modal(this.getAttribute('data-filterID'));"
+                                    >Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -136,6 +285,18 @@
     function modal(e){
         $(e).modal('toggle');
     }
+
+    // $('#minCost').on('change', function (){
+    //     const minCost = this.value;
+    //     alert(minCost);
+    //
+    //     let str = $('#costFilterButton').attr('th:href');
+    //     alert(str);
+    // });
+
+    // $('#filterFormCost').submit(function(){
+    //     window.location.href = '../house/byCost/' + this.minCost.value + '/' + this.maxCost.value;
+    // });
 </script>
 
 

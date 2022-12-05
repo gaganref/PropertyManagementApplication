@@ -5,6 +5,7 @@ import com.pma.web.model.House;
 import com.pma.web.service.HouseServiceImpl;
 import com.pma.web.service.LandlordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,28 +38,14 @@ public class HouseController {
         return "houses/house";
     }
 
-
-    @GetMapping("/byLandlord/{landlordID}")
-    public String getHouseByLandlord(@PathVariable("landlordID") long landlordID, Model model) {
-        model.addAttribute("houses", houseService.getHouseByLandlord(landlordID));
-        return "houses/allHouses";
-    }
-
-    //TODO:
-    @GetMapping("/byPostcode/{postcode}")
-    public String getHouseByPostCode(@PathVariable("postcode") String postcode, Model model) {
-        model.addAttribute("houses", houseService.getAllHouses());
-        return "houses/allHouses";
-    }
-
-    @GetMapping("/byCost/{min}/{max}")
-    public String getHouseByCost(@PathVariable("min") BigDecimal min, @PathVariable("max") BigDecimal max, Model model) {
+    @GetMapping("/byCost/")
+    public String getHouseByCost(BigDecimal min, BigDecimal max, Model model) {
         model.addAttribute("houses", houseService.getHouseByCost(min, max));
         return "houses/allHouses";
     }
 
-    @GetMapping("/byRooms/{min}/{max}")
-    public String getHouseByRooms(@PathVariable("min") Integer min, @PathVariable("max") Integer max, Model model) {
+    @GetMapping("/byRooms/")
+    public String getHouseByRooms(Integer min, Integer max, Model model) {
         model.addAttribute("houses", houseService.getHouseByRooms(min, max));
         return "houses/allHouses";
     }

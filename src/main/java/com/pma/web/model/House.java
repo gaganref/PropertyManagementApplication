@@ -22,7 +22,7 @@ public class House {
 //    @Column(name = "landlord")
 //    private Integer landlord;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "landlord", referencedColumnName = "landlord_id")
     @JsonIgnoreProperties("houses")
     private Landlord landlord;

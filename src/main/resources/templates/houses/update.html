@@ -48,7 +48,7 @@
                     <div class="row">
                       <div class="form-group col-md-8">
                         <label for="dropDownList" class="col-form-label">Select Landlord</label>
-                        <select th:field="*{landlord}" class="form-control" id="dropDownList">
+                        <select th:field="*{landlord}" class="form-select" id="dropDownList">
                           <option th:each="option : ${landlords}" th:value="${option.getLandlordId()}" th:text="${option.toString()}"></option>
                         </select>
                       </div>
