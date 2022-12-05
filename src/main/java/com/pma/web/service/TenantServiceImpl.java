@@ -32,7 +32,7 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public Tenant getTenant(long tenantId) {
 		try {
-			Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+			Optional<Tenant> tenantList = this.tenantRepository.findByTenantId(tenantId);
 			if (tenantList.isPresent()) {
 				return tenantList.get();
 			} 
@@ -47,7 +47,7 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public void removeTenant(long tenantId) { 
 		try {
-			Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+			Optional<Tenant> tenantList = this.tenantRepository.findByTenantId(tenantId);
 			if (tenantList.isPresent()) {
 				this.tenantRepository.delete(tenantList.get());
 			} 
@@ -62,12 +62,12 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public Tenant updateTenant(long tenantId, Tenant tenant) {
 		try {
-			Optional<Tenant> tenantList = this.tenantRepository.findByTenantID(tenantId);
+			Optional<Tenant> tenantList = this.tenantRepository.findByTenantId(tenantId);
 			if (tenantList.isPresent()) {
 				Tenant TenantUpdate = tenantList.get();
 				TenantUpdate.setName(tenant.getName());
-				TenantUpdate.setEmailID(tenant.getEmailID());
-				TenantUpdate.setPhoneNO(tenant.getPhoneNO());
+				TenantUpdate.setEmailId(tenant.getEmailId());
+				TenantUpdate.setPhoneNo(tenant.getPhoneNo());
 				TenantUpdate.setPreviousAddress(tenant.getPreviousAddress());
 				tenantRepository.save(TenantUpdate);
 				return TenantUpdate;

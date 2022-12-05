@@ -37,12 +37,12 @@
       </div>
       <div class="card shadow" style="margin: 30px 15px 60px 15px;">
         <div class="card-header py-3">
+          <div class="row" style="padding: 15px;" th:if="${#lists.isEmpty(landlords)}">
+            <h3>No Records found. Add some...!</h3>
+          </div>
           <div class="row">
             <div class="col-md-6 align-self-center">
               <p class="text-primary m-0 fw-bold">Landlords Info</p>
-            </div>
-            <div style="padding: 15px; float: left;" th:if="${#lists.isEmpty(landlords)}">
-              <h3>No Records found. Add some...!</h3>
             </div>
             <div class="col-md-6">
               <div class="row">
@@ -86,7 +86,7 @@
                     <a class="info" th:href="@{/house/byLandlord/{landlordID}/(landlordID=${landlord.getLandlordId()})}"
                        data-toggle="tooltip" data-placement="bottom" title="View landlord Houses"
                     >
-                        <i class="fas fa-info-circle text-primary"></i>
+                        <i class="fas fa-arrow-circle-right text-primary"></i>
                     </a>
                     <a class="info" th:href="@{/house/showAdd/landlord/{landlordID}/(landlordID=${landlord.getLandlordId()})}"
                        data-toggle="tooltip" data-placement="bottom" title="Add new house"

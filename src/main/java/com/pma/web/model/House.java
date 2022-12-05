@@ -11,16 +11,12 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "house")
-@SecondaryTable(name = "address", pkJoinColumns = @PrimaryKeyJoinColumn(name = "address_id"))
 public class House {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "house_id")
     private long houseID;
-
-//    @Column(name = "landlord")
-//    private Integer landlord;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "landlord", referencedColumnName = "landlord_id")
@@ -40,6 +36,13 @@ public class House {
     private BigDecimal cost;     // pppm = per person per month i.e rent per person per month
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="flatNo", column=@Column(name="flat_no")),
+            @AttributeOverride(name="houseNo", column=@Column(name="house_no")),
+            @AttributeOverride(name="street", column=@Column(name="street")),
+            @AttributeOverride(name="city", column=@Column(name="city")),
+            @AttributeOverride(name="postcode", column=@Column(name="postcode")),
+    })
     @NotNull(message = "Address cannot be null")
     @Valid
     private Address address;

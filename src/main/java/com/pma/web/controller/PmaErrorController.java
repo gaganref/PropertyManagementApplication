@@ -9,7 +9,6 @@ public class PmaErrorController implements ErrorController {
 
     @RequestMapping("/page-not-found")
     public String handleError() {
-        //do something like logging
         return "pageNotFound";
     }
 }

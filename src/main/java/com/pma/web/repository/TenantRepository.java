@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TenantRepository extends JpaRepository<Tenant, Long> {
 	
-	Optional<Tenant> findByTenantID(long tenantID);
+	Optional<Tenant> findByTenantId(long tenantID);
 
 
 }

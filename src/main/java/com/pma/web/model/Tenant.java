@@ -1,6 +1,9 @@
 package com.pma.web.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Tenant")
@@ -8,40 +11,58 @@ public class Tenant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tenant_id")
-    private long tenantID;
+    private long tenantId;
 
     @Column(name = "name")
+    @NotNull(message = "Landlord name cannot be null.")
+    @Pattern(regexp = "^[A-Z](?=.{1,29}$)[A-Za-z]*(?:\\h+[A-Z][A-Za-z]*)*$", message = "Enter a valid name, first letter should be capital for all (first, middle, last names)")
     private String name;
 
     @Column(name = "email_id")
-    private String emailID;
+    @NotNull(message = "email id cannot be null.")
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Enter a valid email id")
+    private String emailId;
 
     @Column(name = "phone_no")
-    private String phoneNO;
+    @NotNull(message = "phone number cannot be null.")
+    @Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+            + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+            + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$",
+            message = "Enter a valid phone number")
+    private String phoneNo;
 
-    @Column(name = "previous_address")
-    private long previousAddress;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="flatNo", column=@Column(name="flat_no")),
+            @AttributeOverride(name="houseNo", column=@Column(name="house_no")),
+            @AttributeOverride(name="street", column=@Column(name="street")),
+            @AttributeOverride(name="city", column=@Column(name="city")),
+            @AttributeOverride(name="postcode", column=@Column(name="postcode")),
+    })
+    @NotNull(message = "Address cannot be null")
+    @Valid
+    private Address previousAddress;
     
     public Tenant() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tenant(String name, String emailid,
-			String phoneno,long previousAddress) {
+	public Tenant(String name, String emailId,
+			String phoneNo,Address previousAddress) {
 		super();
 		this.name = name;
-		this.emailID = emailid;
-		this.phoneNO = phoneno;
+		this.emailId = emailId;
+		this.phoneNo = phoneNo;
 		this.previousAddress = previousAddress;
 	}
 
-    public long getTenantID() {
-        return tenantID;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public void setTenantID(long tenantID) {
-        this.tenantID = tenantID;
+    public void setTenantId(long tenantID) {
+        this.tenantId = tenantID;
     }
 
     public String getName() {
@@ -52,36 +73,36 @@ public class Tenant {
         this.name = name;
     }
 
-    public String getEmailID() {
-        return emailID;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmailID(String emailID) {
-        this.emailID = emailID;
+    public void setEmailId(String emailID) {
+        this.emailId = emailID;
     }
 
-    public String getPhoneNO() {
-        return phoneNO;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public void setPhoneNO(String phoneNO) {
-        this.phoneNO = phoneNO;
+    public void setPhoneNo(String phoneNO) {
+        this.phoneNo = phoneNO;
     }
 
-    public long getPreviousAddress() {
+    public Address getPreviousAddress() {
         return previousAddress;
     }
 
-    public void setPreviousAddress(long previousAddress) {
+    public void setPreviousAddress(Address previousAddress) {
         this.previousAddress = previousAddress;
     }
 
     public String toString(){
         String outString = "";
-        outString += "--- Info of Tenant with ID " + tenantID + " ---\n";
+        outString += "--- Info of Tenant with ID " + tenantId + " ---\n";
         outString += "Name: " + name + "\n";
-        outString += "Email ID: " + emailID + "\n";
-        outString += "Phone NO: " + phoneNO + "\n";
+        outString += "Email ID: " + emailId + "\n";
+        outString += "Phone NO: " + phoneNo + "\n";
         outString += "--- --- ---\n";
         return outString;
     }
