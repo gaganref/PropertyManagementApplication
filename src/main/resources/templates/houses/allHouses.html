@@ -116,6 +116,10 @@
                                             <div class="modal-body">
                                                 <p><b>House Details</b></p><br>
                                                 <p th:text="${house.toString()}"></p><br>
+                                                <p><b>Address Details</b></p><br>
+                                                <p th:text="${house.address.toString()}"></p><br>
+                                                <p><b>Landlord Details</b></p><br>
+                                                <p th:text="${house.landlord.toString()}"></p><br>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
@@ -153,6 +157,11 @@
                                                 <p th:text="'Street: ' + ${house.address.getStreet()}"></p>
                                                 <p th:text="'City: ' + ${house.address.getCity()}"></p>
                                                 <p th:text="'Postcode: ' + ${house.address.getPostcode()}"></p>
+                                                <div>
+                                                    <a type="button" class="btn btn-outline-primary"
+                                                       th:href="@{/landlord/{landlordID}(landlordID=${house.landlord.landlordId})}"
+                                                    >View Landlord</a>
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-primary"
@@ -285,18 +294,6 @@
     function modal(e){
         $(e).modal('toggle');
     }
-
-    // $('#minCost').on('change', function (){
-    //     const minCost = this.value;
-    //     alert(minCost);
-    //
-    //     let str = $('#costFilterButton').attr('th:href');
-    //     alert(str);
-    // });
-
-    // $('#filterFormCost').submit(function(){
-    //     window.location.href = '../house/byCost/' + this.minCost.value + '/' + this.maxCost.value;
-    // });
 </script>
 
 

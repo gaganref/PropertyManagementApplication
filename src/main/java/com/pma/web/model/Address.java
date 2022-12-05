@@ -88,5 +88,16 @@ public class Address {
 		this.postcode = postcode;
 	}
 
+	public String toString(){
+		String outString = "";
+		if(flatNo != null){
+			outString += "Flat No: " + flatNo + "\n";
+		}
+		outString += "House No: " + houseNo + "\n";
+		outString += "Street: " + street + "\n";
+		outString += "City: " + city + "\n";
+		outString += "Postcode: " + postcode + "\n";
+		return outString;
+	}
 	
 }

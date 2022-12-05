@@ -2,6 +2,7 @@ package com.pma.web.controller;
 
 
 import com.pma.web.model.House;
+import com.pma.web.model.Landlord;
 import com.pma.web.service.HouseServiceImpl;
 import com.pma.web.service.LandlordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,13 @@ public class HouseController {
         return "houses/house";
     }
 
+    @GetMapping("/byLandlord/{landlordID}")
+    public String getHousesOfLandlord(Model model, @PathVariable("landlordID") long landlordID) {
+        Landlord landlord = landlordService.getLandlord(landlordID);
+        model.addAttribute("houses", houseService.getHouseByLandlord(landlord));
+        return "houses/allHouses";
+    }
+
     @GetMapping("/byCost/")
     public String getHouseByCost(BigDecimal min, BigDecimal max, Model model) {
         model.addAttribute("houses", houseService.getHouseByCost(min, max));
@@ -66,6 +74,24 @@ public class HouseController {
 
         houseService.addHouse(house);
         return "redirect:/house/all";
+    }
+
+    @GetMapping("/showAdd/landlord/{landlordID}")
+    public String showAddHouseLandlord(House house, Model model, @PathVariable long landlordID) {
+        model.addAttribute("house", new House());
+        model.addAttribute("landlord", landlordService.getLandlord(landlordID));
+        return "houses/addHouseWithLandlord";
+    }
+
+    @PostMapping("/add/landlord/{landlordID}")
+    public String addHouseLandlord(@Valid House house, BindingResult result, Model model, @PathVariable long landlordID) {
+        if (result.hasErrors()) {
+            model.addAttribute("landlord", landlordService.getLandlord(landlordID));
+            return "houses/addHouseWithLandlord";
+        }
+        house.setLandlord(landlordService.getLandlord(landlordID));
+        houseService.addHouse(house);
+        return "redirect:/landlord/"+landlordID;
     }
 
     @GetMapping("/{houseID}/edit")

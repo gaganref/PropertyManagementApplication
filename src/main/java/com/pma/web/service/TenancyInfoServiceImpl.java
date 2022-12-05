@@ -28,7 +28,7 @@ public class TenancyInfoServiceImpl implements TenancyInfoService {
         try {
             return tenancyInfoRepository.save(tenancyInfo);
         } catch (Exception e) {
-            throw new ModelAddException("Couldn't add the model TenancyInfo, please add the proper details");
+            throw new ModelAddException("Couldn't add.html the model TenancyInfo, please add.html the proper details");
         }
     }
 

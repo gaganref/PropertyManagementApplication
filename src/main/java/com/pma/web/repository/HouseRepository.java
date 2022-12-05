@@ -1,6 +1,7 @@
 package com.pma.web.repository;
 
 import com.pma.web.model.House;
+import com.pma.web.model.Landlord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +16,9 @@ public interface HouseRepository extends JpaRepository<House, Long> {
 
     Optional<House> findByHouseID(long houseID);
 
-    List<House> findByLandlord(long landlordID);
+    List<House> findByLandlord(Landlord landlord);
 
     List<House> findHouseByNoOfRoomsBetween(Integer min, Integer max);
 
     List<House> findHouseByCostBetween(BigDecimal min, BigDecimal max);
-
 }

@@ -1,6 +1,7 @@
 package com.pma.web.service;
 
 import com.pma.web.model.House;
+import com.pma.web.model.Landlord;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface HouseService {
 
     public List<House> getAllHouses();
 
-    public List<House> getHouseByLandlord(long landlordID);
+    public List<House> getHouseByLandlord(Landlord landlord);
 
     public List<House> getHouseByTenant(long tenantID);
 

@@ -5,6 +5,7 @@ import com.pma.web.exception.ModelEmptyListException;
 import com.pma.web.exception.ModelNotFoundException;
 import com.pma.web.exception.ModelUpdateException;
 import com.pma.web.model.House;
+import com.pma.web.model.Landlord;
 import com.pma.web.repository.HouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class HouseServiceImpl implements HouseService {
         try {
             return houseRepository.save(house);
         } catch (Exception e) {
-            throw new ModelAddException("Couldn't add the model House, please add the proper details");
+            throw new ModelAddException("Couldn't add the model House, please add proper details");
         }
     }
 
@@ -124,21 +125,12 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> getHouseByLandlord(long landlordID) {
-//        try {
-//            List<House> outHouseList = new ArrayList<House>();
-//            List<House> houseList = getAllHouses();
-//
-//            houseList.stream().forEach(house ->{
-//                if(house.getLandlord() == landlordID){
-//                    outHouseList.add(house);
-//                }
-//            });
-//            return outHouseList;
-//        } catch (Exception e) {
-//            throw new ModelEmptyListException("Error retrieving houses... please try again");
-//        }
-        return null;
+    public List<House> getHouseByLandlord(Landlord landlord) {
+        try {
+            return houseRepository.findByLandlord(landlord);
+        } catch (Exception e) {
+            throw new ModelEmptyListException("No houses found for the given landlord");
+        }
     }
 
     @Override

@@ -3,7 +3,10 @@ package com.pma.web.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "Landlord")
@@ -15,13 +18,22 @@ public class Landlord {
     private long landlordId;
 
     @Column(name = "name")
+	@NotNull(message = "Landlord name cannot be null.")
+	@Pattern(regexp = "^[A-Z](?=.{1,29}$)[A-Za-z]*(?:\\h+[A-Z][A-Za-z]*)*$", message = "Enter a valid name, first letter should be capital for all (first, middle, last names)")
     private String name;
 
     @Column(name = "email_id")
-    private String emailid;
+	@NotNull(message = "email id cannot be null.")
+	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Enter a valid email id")
+    private String emailId;
 
     @Column(name = "phone_no")
-    private String phoneno;
+	@NotNull(message = "phone number cannot be null.")
+	@Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+					+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+					+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$",
+					message = "Enter a valid phone number")
+    private String phoneNo;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "landlord", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JsonIgnoreProperties("landlord")
@@ -32,17 +44,21 @@ public class Landlord {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Landlord(String name, String emailid,
-			String phoneno, Set<House> houses) {
+	public Landlord(String name, String emailId,
+					String phoneNo, Set<House> houses) {
 		super();
 		this.name = name;
-		this.emailid = emailid;
-		this.phoneno = phoneno;
+		this.emailId = emailId;
+		this.phoneNo = phoneNo;
 		this.houses = houses;
 	}
 
 	public long getLandlordId() {
 		return landlordId;
+	}
+
+	public void setLandlordId(long landlordId) {
+		this.landlordId = landlordId;
 	}
 
 	public String getName() {
@@ -54,19 +70,19 @@ public class Landlord {
 	}
 
 	public String getEmailId() {
-		return emailid;
+		return emailId;
 	}
 
 	public void setEmailId(String emailid) {
-		this.emailid = emailid;
+		this.emailId = emailid;
 	}
 
 	public String getPhoneNo() {
-		return phoneno;
+		return phoneNo;
 	}
 
 	public void setPhoneNo(String phoneno) {
-		this.phoneno = phoneno;
+		this.phoneNo = phoneno;
 	}
 
 	public Set<House> getHouses() {
@@ -81,8 +97,8 @@ public class Landlord {
 		String outString = "";
 		outString += "--- Info of Landlord with ID " + landlordId + " ---\n";
 		outString += "Name: " + name + "\n";
-		outString += "Email ID: " + emailid + "\n";
-		outString += "Phone No: " + phoneno + "\n";
+		outString += "Email ID: " + emailId + "\n";
+		outString += "Phone No: " + phoneNo + "\n";
 		outString += "--- --- ---\n";
 		return outString;
 	}
