@@ -1,6 +1,6 @@
 package com.pma.web.model;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.*;
 
 @Embeddable
@@ -85,12 +85,12 @@ public class Address {
 	public String toString(){
 		String outString = "";
 		if(flatNo != null){
-			outString += "Flat No: " + flatNo + "\n";
+			outString += "| Flat No: " + flatNo + " |";
 		}
-		outString += "House No: " + houseNo + "\n";
-		outString += "Street: " + street + "\n";
-		outString += "City: " + city + "\n";
-		outString += "Postcode: " + postcode + "\n";
+		outString += "| House No: " + houseNo + " |";
+		outString += "| Street: " + street + " |";
+		outString += "| City: " + city + " |";
+		outString += "| Postcode: " + postcode + " |";
 		return outString;
 	}
 	

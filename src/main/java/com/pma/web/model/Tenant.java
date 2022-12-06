@@ -115,11 +115,10 @@ public class Tenant {
 
     public String toString(){
         String outString = "";
-        outString += "--- Info of Tenant with ID " + tenantId + " ---\n";
-        outString += "Name: " + name + "\n";
-        outString += "Email ID: " + emailId + "\n";
-        outString += "Phone NO: " + phoneNo + "\n";
-        outString += "--- --- ---\n";
+        outString += "| Tenant with ID " + tenantId + " |";
+        outString += "| Name: " + name + " |";
+        outString += "| Email ID: " + emailId + " |";
+        outString += "| Phone NO: " + phoneNo + " |";
         return outString;
     }
 }

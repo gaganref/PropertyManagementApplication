@@ -96,11 +96,10 @@ public class Landlord {
 
 	public String toString(){
 		String outString = "";
-		outString += "--- Info of Landlord with ID " + landlordId + " ---\n";
-		outString += "Name: " + name + "\n";
-		outString += "Email ID: " + emailId + "\n";
-		outString += "Phone No: " + phoneNo + "\n";
-		outString += "--- --- ---\n";
+		outString += "| Landlord Id: " + landlordId + " |";
+		outString += "| Name: " + name + " |";
+		outString += "| Email ID: " + emailId + " |";
+		outString += "| Phone No: " + phoneNo + " |";
 		return outString;
 	}
 }

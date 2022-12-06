@@ -1,8 +1,6 @@
 package com.pma.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -114,10 +112,9 @@ public class House {
 
     public String toString(){
         String outString = "";
-        outString += "--- Info of House with ID " + houseID + " ---\n";
-        outString += "No of Rooms: " + noOfRooms + "\n";
-        outString += "Cost per person per month: " + cost + "\n";
-        outString += "--- --- ---\n";
+        outString += "| House Id: " + houseID + " |";
+        outString += "| No of Rooms: " + noOfRooms + " |";
+        outString += "| Cost per person per month: " + cost + " |";
         return outString;
     }
 }

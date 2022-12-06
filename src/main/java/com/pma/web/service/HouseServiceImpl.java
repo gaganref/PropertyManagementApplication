@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +23,9 @@ public class HouseServiceImpl implements HouseService {
     private HouseRepository houseRepository;
 
     @Override
-    public House addHouse(House house) {
+    public void addHouse(House house) {
         try {
-            return houseRepository.save(house);
+            houseRepository.save(house);
         } catch (Exception e) {
             throw new ModelAddException("Couldn't add the model House, please add proper details");
         }
@@ -63,7 +62,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House updateHouse(long id, House house) {
+    public void updateHouse(long id, House house) {
         try {
             Optional<House> outHouse = houseRepository.findByHouseID(id);
             if(outHouse.isPresent()){
@@ -73,39 +72,6 @@ public class HouseServiceImpl implements HouseService {
                 houseToUpdate.setAddress(house.getAddress());
                 houseToUpdate.setNoOfRooms(house.getNoOfRooms());
                 houseToUpdate.setCost(house.getCost());
-                return houseToUpdate;
-            }
-            else{
-                throw new ModelUpdateException("Couldn't update house of id: " + id);
-            }
-        } catch (Exception e) {
-            throw new ModelUpdateException("Couldn't update house of id: " + id + " as it is not present");
-        }
-    }
-
-    @Override
-    public House updateCost(long id, BigDecimal cost) {
-        try {
-            Optional<House> outHouse = houseRepository.findByHouseID(id);
-            if(outHouse.isPresent()){
-                outHouse.get().setCost(cost);
-                return outHouse.get();
-            }
-            else{
-                throw new ModelUpdateException("Couldn't update house of id: " + id);
-            }
-        } catch (Exception e) {
-            throw new ModelUpdateException("Couldn't update house of id: " + id + " as it is not present");
-        }
-    }
-
-    @Override
-    public House updateRooms(long id, Integer no_of_rooms) {
-        try {
-            Optional<House> outHouse = houseRepository.findByHouseID(id);
-            if(outHouse.isPresent()){
-                outHouse.get().setNoOfRooms(no_of_rooms);
-                return outHouse.get();
             }
             else{
                 throw new ModelUpdateException("Couldn't update house of id: " + id);
@@ -134,12 +100,6 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> getHouseByTenant(long tenantID) {
-        // TODO after TenancyInfo
-        return null;
-    }
-
-    @Override
     public List<House> getHouseByCost(BigDecimal min, BigDecimal max) {
         try {
             return houseRepository.findHouseByCostBetween(min, max);
@@ -155,11 +115,5 @@ public class HouseServiceImpl implements HouseService {
         } catch (Exception e) {
             throw new ModelEmptyListException("No houses found between the given rooms");
         }
-    }
-
-    @Override
-    public List<House> getHousesInArea(String postcode) {
-        // TODO after Address
-        return null;
     }
 }

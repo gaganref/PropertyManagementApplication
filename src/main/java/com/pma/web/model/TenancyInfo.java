@@ -92,10 +92,9 @@ public class TenancyInfo {
 
     public String toString(){
         String outString = "";
-        outString += "--- Info of Tenancy with ID " + tenancyInfoID + " ---\n";
-        outString += "Start Date: " + startDate.toString() + "\n";
-        outString += "End Date: " + endDate.toString() + "\n";
-        outString += "--- --- ---\n";
+        outString += "| Tenancy Id: " + tenancyInfoID + " |";
+        outString += "| Start Date: " + startDate.toString() + " |";
+        outString += "| End Date: " + endDate.toString() + " |";
         return outString;
     }
 }
