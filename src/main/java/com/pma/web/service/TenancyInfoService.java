@@ -4,6 +4,7 @@ import com.pma.web.model.TenancyInfo;
 import com.pma.web.model.Tenant;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface TenancyInfoService {
@@ -22,8 +23,8 @@ public interface TenancyInfoService {
 
     public List<TenancyInfo> getTenancyInfoByTenant(long tenantID);
 
-    public List<TenancyInfo> getTenancyInfoByStartDate(LocalDate start_date , LocalDate end_date);
+    public List<TenancyInfo> getTenancyInfoByStartDate(Date start_date , Date end_date);
 
-    public List<TenancyInfo> getTenancyInfoByEndDate(LocalDate start_date , LocalDate end_date);
+    public List<TenancyInfo> getTenancyInfoByEndDate(Date start_date , Date end_date);
 
 }

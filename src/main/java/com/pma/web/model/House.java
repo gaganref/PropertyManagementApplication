@@ -47,6 +47,9 @@ public class House {
     @Valid
     private Address address;
 
+    @OneToOne(mappedBy = "house")
+    private TenancyInfo tenancyInfo;
+
 
     public House() {
         super();
@@ -99,6 +102,14 @@ public class House {
 
     public void setCost(BigDecimal cost) {
         this.cost = cost;
+    }
+
+    public TenancyInfo getTenancyInfo() {
+        return tenancyInfo;
+    }
+
+    public void setTenancyInfo(TenancyInfo tenancyInfo) {
+        this.tenancyInfo = tenancyInfo;
     }
 
     public String toString(){

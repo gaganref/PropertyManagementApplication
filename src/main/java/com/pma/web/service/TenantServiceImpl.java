@@ -4,6 +4,7 @@ import com.pma.web.exception.ModelAddException;
 import com.pma.web.exception.ModelEmptyListException;
 import com.pma.web.exception.ModelNotFoundException;
 import com.pma.web.exception.ModelUpdateException;
+import com.pma.web.model.TenancyInfo;
 import com.pma.web.model.Tenant;
 import com.pma.web.repository.TenantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,7 @@ public class TenantServiceImpl implements TenantService {
 				TenantUpdate.setName(tenant.getName());
 				TenantUpdate.setEmailId(tenant.getEmailId());
 				TenantUpdate.setPhoneNo(tenant.getPhoneNo());
+                TenantUpdate.setTenancyInfo(tenant.getTenancyInfo());
 				TenantUpdate.setPreviousAddress(tenant.getPreviousAddress());
 				tenantRepository.save(TenantUpdate);
 				return TenantUpdate;
@@ -84,6 +86,15 @@ public class TenantServiceImpl implements TenantService {
     public List<Tenant> getAllTenants() {
     	try {
     		return (List<Tenant>) tenantRepository.findAll();
+        } catch (Exception e) {
+            throw new ModelEmptyListException("Error retrieving Tenants... please try again");
+        }
+    }
+
+    @Override
+    public List<Tenant> getTenantsByTenancy(TenancyInfo tenancyInfo) {
+        try {
+            return tenantRepository.findByTenancyInfo(tenancyInfo);
         } catch (Exception e) {
             throw new ModelEmptyListException("Error retrieving Tenants... please try again");
         }

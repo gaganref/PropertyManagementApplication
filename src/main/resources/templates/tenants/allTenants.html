@@ -15,17 +15,16 @@
 <body id="page-top">
 <div id="wrapper">
   <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" th:href="@{/}">
       <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher" style="transform: rotate(15deg);"></i></div>
       <div class="sidebar-brand-text mx-3"><span>PMA</span></div>
     </a>
       <hr class="sidebar-divider my-0">
       <ul class="navbar-nav text-light" id="accordionSidebar">
-        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="houses.html"><i class="fas fa-home"></i><span>Houses</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="tenancies.html"><i class="fas fa-table"></i><span>Tenancies</span></a>
-          <a class="nav-link active" href="tenants.html"><i class="fas fa-users"></i><span>Tenants</span></a>
-          <a class="nav-link" href="landlords.html"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/house/all}"><i class="fas fa-home"></i><span>Houses</span></a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/tenancies/all}"><i class="fas fa-table"></i><span>Tenancies</span></a></li>
+        <li class="nav-item"><a class="nav-link active" th:href="@{/tenant/getall}"><i class="fas fa-users"></i><span>Tenants</span></a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/landlord/getall}"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
       </ul>
       <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
     </div>
@@ -82,15 +81,15 @@
                     <td th:text="${tenant.getEmailId()}"></td>
                     <td th:text="${tenant.getPhoneNo()}"></td>
                     <td>
-                      <div th:if="${tenant.getPreviousAddress()} != null">
-                        <span th:text="${tenant.getPreviousAddress().getPostcode()}"></span>
-                        <a class="info" th:href="@{/house/all}"
+                      <div th:if="${tenant?.getTenancyInfo()?.getHouse()?.getAddress()} != null">
+                        <span th:text="${tenant?.getTenancyInfo().getHouse()?.getAddress()?.getPostcode()}"></span>
+                        <a class="info" th:href="@{/house/{houseID}(houseID=${tenant?.getTenancyInfo()?.getHouse()?.houseID})}"
                            data-toggle="tooltip" data-placement="bottom" title="View Current House"
                         >
                           <i class="fas fa-arrow-circle-right text-primary"></i>
                         </a>
                       </div>
-                      <div th:if="${tenant.getPreviousAddress()} == null">
+                      <div th:if="${tenant?.getTenancyInfo()?.getHouse()?.getAddress()} == null">
                         <span>Not Available</span>
                       </div>
                     </td>
@@ -177,6 +176,14 @@
                       <p th:text="${tenant.toString()}"></p>
                       <p><b>Previous Address</b></p>
                       <p th:text="${tenant.getPreviousAddress().toString()}"></p>
+                      <div th:if="${tenant?.getTenancyInfo()} == null">
+                        <span>Tenancy Info Not Available</span>
+                      </div>
+                      <div th:if="${tenant?.getTenancyInfo()} != null">
+                        <a type="button" class="btn btn-outline-primary"
+                           th:href="@{/tenancies/{tenancyInfoID}(tenancyInfoID=${tenant?.getTenancyInfo()?.getTenancyInfoID()})}"
+                        >View Tenancy Info</a>
+                      </div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary"

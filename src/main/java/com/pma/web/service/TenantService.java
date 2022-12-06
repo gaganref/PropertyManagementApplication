@@ -1,5 +1,6 @@
 package com.pma.web.service;
 
+import com.pma.web.model.TenancyInfo;
 import com.pma.web.model.Tenant;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface TenantService {
 
     public List<Tenant> getAllTenants();
 
+    public List<Tenant> getTenantsByTenancy(TenancyInfo tenancyInfo);
 }

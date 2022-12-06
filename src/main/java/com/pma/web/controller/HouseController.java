@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/house")
@@ -34,9 +36,10 @@ public class HouseController {
 
     @GetMapping("/{houseID}")
     public String getHouse(@PathVariable("houseID") long houseID, Model model) {
-        House house = houseService.getHouse(houseID);
-        model.addAttribute("house", house);
-        return "houses/house";
+        List<House> houses = new ArrayList<>();
+        houses.add(houseService.getHouse(houseID));
+        model.addAttribute("houses", houses);
+        return "houses/allHouses";
     }
 
     @GetMapping("/byLandlord/{landlordID}")

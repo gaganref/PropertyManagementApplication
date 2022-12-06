@@ -4,6 +4,9 @@ package com.pma.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pma.web.model.Landlord;
+import com.pma.web.model.TenancyInfo;
+import com.pma.web.service.TenancyInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +27,20 @@ public class TenantController {
 	@Autowired
     private TenantServiceImpl tenantService;
 
+	@Autowired
+	private TenancyInfoServiceImpl tenancyInfoService;
+
 	@GetMapping("/showAdd")
 	public String showAddHouse(Tenant tenant, Model model) {
 		model.addAttribute("tenant", new Tenant());
+		model.addAttribute("tenancies", tenancyInfoService.getAllTenancyInfos());
 		return "tenants/add";
 	}
 
 	@PostMapping("/add")
 	public String addTenant(@Valid Tenant tenant, BindingResult result, Model model) {
 		if (result.hasErrors()) {
+			model.addAttribute("tenancies", tenancyInfoService.getAllTenancyInfos());
 			return "tenants/add";
 		}
 
@@ -52,6 +60,7 @@ public class TenantController {
 	public String showTenantUpdate(@PathVariable("tenantId") long tenantId, Model model) {
 		Tenant tenant = tenantService.getTenant(tenantId);
 		model.addAttribute("tenant", tenant);
+		model.addAttribute("tenancies", tenancyInfoService.getAllTenancyInfos());
 		return "tenants/update";
 	}
 
@@ -60,6 +69,7 @@ public class TenantController {
 							  BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			tenant.setTenantId(tenantId);
+			model.addAttribute("tenancies", tenancyInfoService.getAllTenancyInfos());
 			return "tenants/update";
 		}
 
@@ -76,6 +86,13 @@ public class TenantController {
     @GetMapping("/getall")
 	public String getAllTenants(Model model) {
 		model.addAttribute("tenants", tenantService.getAllTenants());
+		return "tenants/allTenants";
+	}
+
+	@GetMapping("/byTenancy/{tenancyId}")
+	public String getTenantsOfTenancy(Model model, @PathVariable("tenancyId") long tenancyId) {
+		TenancyInfo tenancyInfo = tenancyInfoService.getTenancyInfo(tenancyId);
+		model.addAttribute("tenants", tenantService.getTenantsByTenancy(tenancyInfo));
 		return "tenants/allTenants";
 	}
 }

@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,9 +69,8 @@ public class TenancyInfoServiceImpl implements TenancyInfoService {
                 TenancyInfo tenancyInfoToUpdate = outTenancyInfo.get();
 
                 tenancyInfoToUpdate.setHouse(tenancyInfo.getHouse());
-                tenancyInfoToUpdate.setTenant(tenancyInfo.getTenant());
                 tenancyInfoToUpdate.setStartDate(tenancyInfo.getStartDate());
-                tenancyInfoToUpdate.setEndDate(tenancyInfoToUpdate.getEndDate());
+                tenancyInfoToUpdate.setEndDate(tenancyInfo.getEndDate());
                 return tenancyInfoToUpdate;
             }
             else{
@@ -94,42 +92,44 @@ public class TenancyInfoServiceImpl implements TenancyInfoService {
 
     @Override
     public List<TenancyInfo> getTenancyInfoByHouse(long houseID) {
-        try {
-            List<TenancyInfo> outTenancyInfo = new ArrayList<TenancyInfo>();
-            List<TenancyInfo> tenancyInfoList = getAllTenancyInfos();
-
-            for(TenancyInfo tenancyInfo : tenancyInfoList){
-                if(tenancyInfo.getHouse() == houseID){
-                    outTenancyInfo.add(tenancyInfo);
-                }
-            }
-
-            return outTenancyInfo;
-        } catch (Exception e) {
-            throw new ModelEmptyListException("Error retrieving tenancies... please try again");
-        }
+//        try {
+//            List<TenancyInfo> outTenancyInfo = new ArrayList<TenancyInfo>();
+//            List<TenancyInfo> tenancyInfoList = getAllTenancyInfos();
+//
+//            for(TenancyInfo tenancyInfo : tenancyInfoList){
+//                if(tenancyInfo.getHouse() == houseID){
+//                    outTenancyInfo.add(tenancyInfo);
+//                }
+//            }
+//
+//            return outTenancyInfo;
+//        } catch (Exception e) {
+//            throw new ModelEmptyListException("Error retrieving tenancies... please try again");
+//        }
+        return null;
     }
 
     @Override
     public List<TenancyInfo> getTenancyInfoByTenant(long tenantID) {
-        try {
-            List<TenancyInfo> outTenancyInfo = new ArrayList<TenancyInfo>();
-            List<TenancyInfo> tenancyInfoList = getAllTenancyInfos();
-
-            for(TenancyInfo tenancyInfo : tenancyInfoList){
-                if(tenancyInfo.getTenant() == tenantID){
-                    outTenancyInfo.add(tenancyInfo);
-                }
-            }
-
-            return outTenancyInfo;
-        } catch (Exception e) {
-            throw new ModelEmptyListException("Error retrieving tenancies... please try again");
-        }
+//        try {
+//            List<TenancyInfo> outTenancyInfo = new ArrayList<TenancyInfo>();
+//            List<TenancyInfo> tenancyInfoList = getAllTenancyInfos();
+//
+//            for(TenancyInfo tenancyInfo : tenancyInfoList){
+//                if(tenancyInfo.getTenant() == tenantID){
+//                    outTenancyInfo.add(tenancyInfo);
+//                }
+//            }
+//
+//            return outTenancyInfo;
+//        } catch (Exception e) {
+//            throw new ModelEmptyListException("Error retrieving tenancies... please try again");
+//        }
+        return null;
     }
 
     @Override
-    public List<TenancyInfo> getTenancyInfoByStartDate(LocalDate start_date, LocalDate end_date) {
+    public List<TenancyInfo> getTenancyInfoByStartDate(Date start_date, Date end_date) {
         try {
             return tenancyInfoRepository.findTenancyInfoByStartDateBetween(start_date, end_date);
         } catch (Exception e) {
@@ -138,7 +138,7 @@ public class TenancyInfoServiceImpl implements TenancyInfoService {
     }
 
     @Override
-    public List<TenancyInfo> getTenancyInfoByEndDate(LocalDate start_date, LocalDate end_date) {
+    public List<TenancyInfo> getTenancyInfoByEndDate(Date start_date, Date end_date) {
         try {
             return tenancyInfoRepository.findTenancyInfoByEndDateBetween(start_date, end_date);
         } catch (Exception e) {

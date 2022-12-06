@@ -1,12 +1,15 @@
 package com.pma.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "Tenant")
+@Table(name = "tenant")
 public class Tenant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class Tenant {
 
     @Column(name = "email_id")
     @NotNull(message = "email id cannot be null.")
-    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Enter a valid email id")
+    @Email(message = "Email should be valid")
     private String emailId;
 
     @Column(name = "phone_no")
@@ -42,6 +45,11 @@ public class Tenant {
     @NotNull(message = "Address cannot be null")
     @Valid
     private Address previousAddress;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tenancy_info", referencedColumnName = "tenancy_info_id")
+    @JsonIgnoreProperties("tenant")
+    private TenancyInfo tenancyInfo;
     
     public Tenant() {
 		super();
@@ -95,6 +103,14 @@ public class Tenant {
 
     public void setPreviousAddress(Address previousAddress) {
         this.previousAddress = previousAddress;
+    }
+
+    public TenancyInfo getTenancyInfo() {
+        return tenancyInfo;
+    }
+
+    public void setTenancyInfo(TenancyInfo tenancyInfo) {
+        this.tenancyInfo = tenancyInfo;
     }
 
     public String toString(){

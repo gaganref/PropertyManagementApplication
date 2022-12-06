@@ -3,6 +3,7 @@ package com.pma.web.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Landlord {
 
     @Column(name = "email_id")
 	@NotNull(message = "email id cannot be null.")
-	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Enter a valid email id")
+	@Email(message = "Email should be valid")
     private String emailId;
 
     @Column(name = "phone_no")

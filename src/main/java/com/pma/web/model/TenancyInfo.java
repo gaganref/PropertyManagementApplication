@@ -1,7 +1,13 @@
 package com.pma.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "tenancy_info")
@@ -11,24 +17,32 @@ public class TenancyInfo {
     @Column(name = "tenancy_info_id")
     private long tenancyInfoID;
 
-    @Column(name = "house")
-    private Integer house;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "house", referencedColumnName = "house_id")
+    @NotNull(message = "House details cannot be null")
+    @Valid
+    private House house;
 
-    @Column(name = "tenant")
-    private Integer tenant;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tenancyInfo", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnoreProperties("tenancy_info")
+    private Set<Tenant> tenant;
 
     @Column(name = "start_date")
-    private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
 
     @Column(name = "end_date")
-    private LocalDate endDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
 
     public TenancyInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TenancyInfo(int house,int tenant,LocalDate startDate,LocalDate endDate) {
+	public TenancyInfo(House house,Set<Tenant> tenant,Date startDate,Date endDate) {
 		super();
 		this.house = house;
 		this.tenant = tenant;
@@ -44,35 +58,35 @@ public class TenancyInfo {
         this.tenancyInfoID = tenancyInfoID;
     }
 
-    public Integer getHouse() {
+    public House getHouse() {
         return house;
     }
 
-    public void setHouse(Integer house) {
+    public void setHouse(House house) {
         this.house = house;
     }
 
-    public Integer getTenant() {
+    public Set<Tenant> getTenant() {
         return tenant;
     }
 
-    public void setTenant(Integer tenant) {
+    public void setTenant(Set<Tenant> tenant) {
         this.tenant = tenant;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
