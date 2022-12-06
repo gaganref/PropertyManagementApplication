@@ -16,9 +16,6 @@
     <properties>
         <java.version>19</java.version>
         <bootstrap.version>4.2.1</bootstrap.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>3.2.0</maven.compiler.source>
-        <maven.compiler.target>3.2.0</maven.compiler.target>
     </properties>
     <dependencies>
 
@@ -59,12 +56,6 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
-<!--            <version>1.6.12</version>-->
-<!--        </dependency>-->
 
         <!-- Optional, for bootstrap -->
         <dependency>
