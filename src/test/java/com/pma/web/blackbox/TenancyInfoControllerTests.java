@@ -262,7 +262,10 @@ public class TenancyInfoControllerTests {
                         .param("house.address.city", thisHouse.getAddress().getCity())
                         .param("house.address.postcode", "")
                 )
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isOk())
+                .andExpect(view().name("tenancies/add"))
+                .andExpect(model().attributeHasFieldErrors("tenancy", "startDate"))
+                .andExpect(model().attributeHasFieldErrors("tenancy", "house.address.postcode"));
     }
 
     @RepeatedTest(TEST_REPETITIONS)
@@ -313,6 +316,42 @@ public class TenancyInfoControllerTests {
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location", "/tenancies/all"));
+    }
+
+    @RepeatedTest(TEST_REPETITIONS)
+    public void updateTenancyErrorTest() throws Exception{
+        TenancyInfo thisTenancy = tenancies.get(currentRandIndex);
+
+        when(tenancyInfoService.getTenancyInfo(thisTenancy.getTenancyInfoID())).thenReturn(thisTenancy);
+        when(houseService.getAllHouses()).thenReturn(houses);
+
+        House thisHouse = thisTenancy.getHouse();
+        String thisHouseFlatNo = "";
+        if(thisHouse.getAddress().getFlatNo() != null){
+            thisHouseFlatNo = thisHouse.getAddress().getFlatNo().toString();
+        }
+
+        this.mockMvc
+                .perform(post("/tenancies/{tenancyInfoID}/update", thisTenancy.getTenancyInfoID())
+                        .param("startDate", "")
+                        .param("endDate", "")
+                        .param("house.landlord.name", thisHouse.getLandlord().getName())
+                        .param("house.landlord.emailId", thisHouse.getLandlord().getEmailId())
+                        .param("house.landlord.phoneNo", thisHouse.getLandlord().getPhoneNo())
+                        .param("house.noOfRooms", thisHouse.getNoOfRooms().toString())
+                        .param("house.cost", "340.00")
+                        .param("house.address.flatNo", thisHouseFlatNo)
+                        .param("house.address.houseNo", "5")
+                        .param("house.address.street", "")
+                        .param("house.address.city", "London")
+                        .param("house.address.postcode", thisHouse.getAddress().getPostcode())
+
+                )
+                .andExpect(status().isOk())
+                .andExpect(view().name("tenancies/update"))
+                .andExpect(model().attributeHasFieldErrors("tenancy", "startDate"))
+                .andExpect(model().attributeHasFieldErrors("tenancy", "endDate"))
+                .andExpect(model().attributeHasFieldErrors("tenancy", "house.address.street"));
     }
 
     @RepeatedTest(TEST_REPETITIONS)

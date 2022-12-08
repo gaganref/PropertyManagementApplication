@@ -259,6 +259,7 @@ public class HouseControllerTests {
 
     @RepeatedTest(TEST_REPETITIONS)
     public void showAddHouseLandlordTest() throws Exception{
+
         when(landlordService.getLandlord(currentRandIndex)).thenReturn(landlords.get(currentRandIndex));
 
         this.mockMvc
@@ -266,7 +267,7 @@ public class HouseControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("houses/addHouseWithLandlord"))
                 .andExpect(model().attributeExists("house"))
-                .andExpect(model().attributeExists("landlord"));
+                .andExpect(model().attributeExists("inLandlord"));
     }
 
     @RepeatedTest(TEST_REPETITIONS)
@@ -281,6 +282,9 @@ public class HouseControllerTests {
 
         this.mockMvc
                 .perform(post("/house/add/landlord/{landlordID}", landlords.get(currentRandIndex).getLandlordId())
+                        .param("landlord.name", thisHouse.getLandlord().getName())
+                        .param("landlord.emailId", thisHouse.getLandlord().getEmailId())
+                        .param("landlord.phoneNo", thisHouse.getLandlord().getPhoneNo())
                         .param("noOfRooms", thisHouse.getNoOfRooms().toString())
                         .param("cost", thisHouse.getCost().toString())
                         .param("address.flatNo", thisHouseFlatNo)
@@ -305,6 +309,9 @@ public class HouseControllerTests {
 
         this.mockMvc
                 .perform(post("/house/add/landlord/{landlordID}", landlords.get(currentRandIndex).getLandlordId())
+                        .param("landlord.name", thisHouse.getLandlord().getName())
+                        .param("landlord.emailId", thisHouse.getLandlord().getEmailId())
+                        .param("landlord.phoneNo", thisHouse.getLandlord().getPhoneNo())
                         .param("noOfRooms", "8999")
                         .param("cost", thisHouse.getCost().toString())
                         .param("address.flatNo", thisHouseFlatNo)
@@ -317,7 +324,7 @@ public class HouseControllerTests {
                 .andExpect(view().name("houses/addHouseWithLandlord"))
                 .andExpect(model().attributeHasFieldErrors("house", "noOfRooms"))
                 .andExpect(model().attributeHasFieldErrors("house", "address.street"))
-                .andExpect(model().attributeExists("landlord"));
+                .andExpect(model().attributeExists("inLandlord"));
     }
 
     @RepeatedTest(TEST_REPETITIONS)
