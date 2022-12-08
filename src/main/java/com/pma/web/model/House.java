@@ -46,11 +46,22 @@ public class House {
     private Address address;
 
     @OneToOne(mappedBy = "house")
+    @Valid
     private TenancyInfo tenancyInfo;
 
 
     public House() {
         super();
+    }
+
+    public House(long houseID, Landlord landlord, Address address, Integer noOfRooms, BigDecimal cost) {
+        super();
+
+        this.houseID = houseID;
+        this.landlord = landlord;
+        this.address = address;
+        this.noOfRooms = noOfRooms;
+        this.cost = cost;
     }
 
     public House(Landlord landlord, Address address, Integer noOfRooms, BigDecimal cost) {

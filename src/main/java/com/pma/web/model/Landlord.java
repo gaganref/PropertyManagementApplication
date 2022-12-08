@@ -25,7 +25,7 @@ public class Landlord {
 
     @Column(name = "email_id")
 	@NotNull(message = "email id cannot be null.")
-	@Email(message = "Email should be valid")
+	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Enter a valid email id")
     private String emailId;
 
     @Column(name = "phone_no")
@@ -45,13 +45,21 @@ public class Landlord {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Landlord(long landlordId, String name, String emailId,
+					String phoneNo) {
+		super();
+		this.landlordId = landlordId;
+		this.name = name;
+		this.emailId = emailId;
+		this.phoneNo = phoneNo;
+	}
+
 	public Landlord(String name, String emailId,
-					String phoneNo, Set<House> houses) {
+					String phoneNo) {
 		super();
 		this.name = name;
 		this.emailId = emailId;
 		this.phoneNo = phoneNo;
-		this.houses = houses;
 	}
 
 	public long getLandlordId() {

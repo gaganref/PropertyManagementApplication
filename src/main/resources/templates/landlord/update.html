@@ -44,12 +44,12 @@
                                         <div class="row">
                                             <div class="form-group col-md-12">
                                                 <label for="name" class="col-form-label">Name</label>
-                                                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Krishna">
+                                                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
                                                 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <label for="emailId" class="col-form-label">Email ID</label>
-                                                <input type="text" th:field="*{emailId}" class="form-control" id="emailId" placeholder="krish@gmail.com">
+                                                <input type="text" th:field="*{emailId}" class="form-control" id="emailId" placeholder="excample@mail.com">
                                                 <span th:if="${#fields.hasErrors('emailId')}" th:errors="*{emailId}" class="text-danger"></span>
                                             </div>
                                             <div class="form-group col-md-12">

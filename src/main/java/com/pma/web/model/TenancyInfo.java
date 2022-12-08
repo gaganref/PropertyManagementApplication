@@ -6,6 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -30,11 +32,13 @@ public class TenancyInfo {
     @Column(name = "start_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "Start date cannot be null")
     private Date startDate;
 
     @Column(name = "end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "End date details cannot be null")
     private Date endDate;
 
     public TenancyInfo() {
@@ -42,10 +46,17 @@ public class TenancyInfo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TenancyInfo(House house,Set<Tenant> tenant,Date startDate,Date endDate) {
+    public TenancyInfo(long tenancyInfoID, House house, Date startDate,Date endDate) {
+        super();
+        this.tenancyInfoID = tenancyInfoID;
+        this.house = house;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+	public TenancyInfo(House house ,Date startDate,Date endDate) {
 		super();
 		this.house = house;
-		this.tenant = tenant;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
@@ -78,6 +89,15 @@ public class TenancyInfo {
         return startDate;
     }
 
+    public String getStartDateString(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        if(endDate != null){
+            return dateFormat.format(startDate);
+        }
+        return "01-01-2021";
+    }
+
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
@@ -86,15 +106,29 @@ public class TenancyInfo {
         return endDate;
     }
 
+    public String getEndDateString(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        if(endDate != null){
+            return dateFormat.format(endDate);
+        }
+        return "01-01-2021";
+    }
+
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
     public String toString(){
         String outString = "";
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         outString += "| Tenancy Id: " + tenancyInfoID + " |";
-        outString += "| Start Date: " + startDate.toString() + " |";
-        outString += "| End Date: " + endDate.toString() + " |";
+        if(startDate != null){
+            outString += "| Start Date: " + dateFormat.format(startDate) + " |";
+        }
+        if(endDate != null){
+            outString += "| End Date: " + dateFormat.format(endDate) + " |";
+        }
         return outString;
     }
 }

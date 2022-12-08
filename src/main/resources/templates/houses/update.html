@@ -57,37 +57,37 @@
                       </div>
                       <div class="form-group col-md-12">
                         <label for="noOfRooms" class="col-form-label">No of Rooms</label>
-                        <input type="text" th:field="*{noOfRooms}" class="form-control" id="noOfRooms" placeholder="0">
+                        <input type="text" th:field="*{noOfRooms}" class="form-control" id="noOfRooms" placeholder="1">
                         <span th:if="${#fields.hasErrors('noOfRooms')}" th:errors="*{noOfRooms}" class="text-danger"></span>
                       </div>
                       <div class="form-group col-md-12">
                         <label for="cost" class="col-form-label">Cost Per Person Per Month</label>
-                        <input type="text" th:field="*{cost}" class="form-control" id="cost" placeholder="100.0">
+                        <input type="text" th:field="*{cost}" class="form-control" id="cost" placeholder="100.00">
                         <span th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}" class="text-danger"></span>
                       </div>
                       <div class="form-group col-md-12">
                         <label for="flatNo" class="col-form-label">Flat No</label>
-                        <input type="text" th:field="*{address.flatNo}" class="form-control" id="flatNo" placeholder="15">
+                        <input type="text" th:field="*{address.flatNo}" class="form-control" id="flatNo" placeholder="1">
                         <span th:if="${#fields.hasErrors('address.flatNo')}" th:errors="*{address.flatNo}" class="text-danger"></span>
                       </div>
                       <div class="form-group col-md-12">
                         <label for="houseNo" class="col-form-label">House No</label>
-                        <input type="text" th:field="*{address.houseNo}" class="form-control" id="houseNo" placeholder="15">
+                        <input type="text" th:field="*{address.houseNo}" class="form-control" id="houseNo" placeholder="1">
                         <span th:if="${#fields.hasErrors('address.houseNo')}" th:errors="*{address.houseNo}" class="text-danger"></span>
                       </div>
                       <div class="form-group col-md-12">
                         <label for="street" class="col-form-label">Street</label>
-                        <input type="text" th:field="*{address.street}" class="form-control" id="street" placeholder="15">
+                        <input type="text" th:field="*{address.street}" class="form-control" id="street" placeholder="Street">
                         <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" class="text-danger"></span>
                       </div>
                       <div class="form-group col-md-12">
                         <label for="city" class="col-form-label">City</label>
-                        <input type="text" th:field="*{address.city}" class="form-control" id="city" placeholder="15">
+                        <input type="text" th:field="*{address.city}" class="form-control" id="city" placeholder="City">
                         <span th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}" class="text-danger"></span>
                       </div>
                       <div class="form-group col-md-12">
                         <label for="postcode" class="col-form-label">Postcode</label>
-                        <input type="text" th:field="*{address.postcode}" class="form-control" id="postcode" placeholder="15">
+                        <input type="text" th:field="*{address.postcode}" class="form-control" id="postcode" placeholder="Postcode">
                         <span th:if="${#fields.hasErrors('address.postcode')}" th:errors="*{address.postcode}" class="text-danger"></span>
                       </div>
 

@@ -32,6 +32,15 @@ public class Address {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Address(int houseNo, String street, String city,
+				   String postcode) {
+		super();
+		this.houseNo = houseNo;
+		this.street = street;
+		this.city = city;
+		this.postcode = postcode;
+	}
+
 	public Address(int flatNo,int houseNo, String street, String city,
 			String postcode) {
 		super();

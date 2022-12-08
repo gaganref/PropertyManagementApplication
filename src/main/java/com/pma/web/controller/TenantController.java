@@ -28,7 +28,7 @@ public class TenantController {
 	private TenancyInfoServiceImpl tenancyInfoService;
 
 	@GetMapping("/showAdd")
-	public String showAddHouse(Tenant tenant, Model model) {
+	public String showAddTenant(Tenant tenant, Model model) {
 		model.addAttribute("tenant", new Tenant());
 		model.addAttribute("tenancies", tenancyInfoService.getAllTenancyInfos());
 		return "tenants/add";
