@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -50,7 +47,7 @@ public class TenancyInfoController {
     }
 
     @PostMapping("/add")
-    public String addTenancyInfo(@Valid TenancyInfo tenancyInfo, Model model, BindingResult result) {
+    public String addTenancyInfo(@Valid @ModelAttribute("tenancy") TenancyInfo tenancyInfo, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("houses", houseService.getAllHouses());
             return "tenancies/add";
@@ -69,7 +66,7 @@ public class TenancyInfoController {
     }
 
     @PostMapping("/{tenancyInfoID}/update")
-    public String updateTenancyInfo(@PathVariable("tenancyInfoID") long tenancyInfoID, @Valid TenancyInfo tenancyInfo,
+    public String updateTenancyInfo(@PathVariable("tenancyInfoID") long tenancyInfoID, @Valid @ModelAttribute("tenancy") TenancyInfo tenancyInfo,
                                                          BindingResult result, Model model) {
         if (result.hasErrors()) {
             tenancyInfo.setTenancyInfoID(tenancyInfoID);
