@@ -42,12 +42,13 @@
             <div class="col-md-5 align-self-center">
               <div class="blog-card blog-card-blog">
                 <div class="blog-table">
-                  <form action="#" th:action="@{/house/add/landlord/{landlordID}(landlordID=${inLandlord.landlordId})}" th:object="${house}" method="post">
+                  <form action="#" th:action="@{/house/add/landlord/{landlordID}(landlordID=${landlord.landlordId})}" th:object="${house}" method="post">
                     <div class="row">
                       <div class="form-group col-md-12">
-                        <label for="landlord" class="col-form-label">Landlord</label>
-                        <input type="text" th:field="*{landlord}" th:placeholder="${inLandlord.toString()}" class="form-control" id="landlord" readonly>
-                        <span th:if="${#fields.hasErrors('landlord')}" th:errors="*{landlord}" class="text-danger"></span>
+                        <label for="dropDownList" class="col-form-label">Select Landlord</label>
+                        <select th:field="*{landlord}" class="form-select" id="dropDownList" disabled>
+                          <option th:value="${landlord.getLandlordId()}" th:text="${landlord.toString()}"></option>
+                        </select>
                       </div>
                       <div class="form-group col-md-12">
                         <label for="noOfRooms" class="col-form-label">No of Rooms</label>

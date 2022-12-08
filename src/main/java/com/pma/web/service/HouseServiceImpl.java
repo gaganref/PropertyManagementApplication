@@ -51,8 +51,6 @@ public class HouseServiceImpl implements HouseService {
         try {
             Optional<House> outHouse = houseRepository.findByHouseID(id);
             if(outHouse.isPresent()){
-                outHouse.get().getTenancyInfo().setHouse(null);
-                outHouse.get().setTenancyInfo(null);
                 houseRepository.delete(outHouse.get());
             }
             else{

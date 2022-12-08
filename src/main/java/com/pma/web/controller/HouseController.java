@@ -83,26 +83,18 @@ public class HouseController {
 
     @GetMapping("/showAdd/landlord/{landlordID}")
     public String showAddHouseLandlord(House house, Model model, @PathVariable long landlordID) {
-
-        House newHouse = new House();
-        Landlord newLandlord = landlordService.getLandlord(landlordID);
-        newHouse.setLandlord(newLandlord);
-
-        model.addAttribute("house", newHouse);
-        model.addAttribute("inLandlord", newLandlord);
+        model.addAttribute("house", new House());
+        model.addAttribute("landlord", landlordService.getLandlord(landlordID));
         return "houses/addHouseWithLandlord";
     }
 
     @PostMapping("/add/landlord/{landlordID}")
     public String addHouseLandlord(@Valid House house, BindingResult result, Model model, @PathVariable long landlordID) {
-
         if (result.hasErrors()) {
-            Landlord newLandlord = landlordService.getLandlord(landlordID);
-            house.setLandlord(newLandlord);
-            model.addAttribute("inLandlord", newLandlord);
+            model.addAttribute("landlord", landlordService.getLandlord(landlordID));
             return "houses/addHouseWithLandlord";
         }
-
+        house.setLandlord(landlordService.getLandlord(landlordID));
         houseService.addHouse(house);
         return "redirect:/landlord/"+landlordID;
     }

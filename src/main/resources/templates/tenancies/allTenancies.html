@@ -86,16 +86,13 @@
                                 <td th:text="${#dates.format(tenancy.startDate, 'dd-MM-yyyy')}"></td>
                                 <td th:text="${#dates.format(tenancy.endDate, 'dd-MM-yyyy')}"></td>
                                 <td>
-                                    <div th:if="${tenancy.getHouse()} != null">
+                                    <div th:if="${tenancy.getHouse().getAddress()} != null">
                                         <span th:text="${tenancy.getHouse().getAddress().getPostcode()}"></span>
                                         <a class="info" th:href="@{/house/{houseID}(houseID=${tenancy.getHouse().houseID})}"
                                            data-toggle="tooltip" data-placement="bottom" title="View Current House"
                                         >
                                             <i class="fas fa-arrow-circle-right text-primary"></i>
                                         </a>
-                                    </div>
-                                    <div th:if="${tenancy.getHouse()} == null">
-                                        <span th:text="'Not Available'"></span>
                                     </div>
                                 </td>
                                 <td>

@@ -21,7 +21,7 @@ public class TenancyInfo {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "house", referencedColumnName = "house_id")
-//    @NotNull(message = "House details cannot be null")
+    @NotNull(message = "House details cannot be null")
     @Valid
     private House house;
 
@@ -33,14 +33,12 @@ public class TenancyInfo {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     @NotNull(message = "Start date cannot be null")
-    @Valid
     private Date startDate;
 
     @Column(name = "end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     @NotNull(message = "End date details cannot be null")
-    @Valid
     private Date endDate;
 
     public TenancyInfo() {
