@@ -19,6 +19,7 @@ public class House {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "landlord", referencedColumnName = "landlord_id")
     @JsonIgnoreProperties("houses")
+    @NotNull(message = "Landlord cannot be null.")
     private Landlord landlord;
 
     @Column(name = "no_of_rooms")
