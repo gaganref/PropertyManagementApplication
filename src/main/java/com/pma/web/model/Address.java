@@ -29,7 +29,6 @@ public class Address {
 	
 	public Address() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Address(int houseNo, String street, String city,

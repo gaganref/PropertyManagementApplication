@@ -42,21 +42,12 @@ public class Landlord {
 
 	public Landlord() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Landlord(long landlordId, String name, String emailId,
 					String phoneNo) {
 		super();
 		this.landlordId = landlordId;
-		this.name = name;
-		this.emailId = emailId;
-		this.phoneNo = phoneNo;
-	}
-
-	public Landlord(String name, String emailId,
-					String phoneNo) {
-		super();
 		this.name = name;
 		this.emailId = emailId;
 		this.phoneNo = phoneNo;

@@ -53,7 +53,6 @@ public class Tenant {
     
     public Tenant() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
     public Tenant(long tenantId, String name, String emailId,
@@ -66,16 +65,6 @@ public class Tenant {
         this.phoneNo = phoneNo;
         this.previousAddress = previousAddress;
     }
-
-
-    public Tenant(String name, String emailId,
-			String phoneNo,Address previousAddress) {
-		super();
-		this.name = name;
-		this.emailId = emailId;
-		this.phoneNo = phoneNo;
-		this.previousAddress = previousAddress;
-	}
 
     public long getTenantId() {
         return tenantId;

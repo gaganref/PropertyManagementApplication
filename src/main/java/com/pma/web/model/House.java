@@ -65,15 +65,6 @@ public class House {
         this.cost = cost;
     }
 
-    public House(Landlord landlord, Address address, Integer noOfRooms, BigDecimal cost) {
-        super();
-
-        this.landlord = landlord;
-        this.address = address;
-        this.noOfRooms = noOfRooms;
-        this.cost = cost;
-    }
-
     public long getHouseID() {
         return houseID;
     }

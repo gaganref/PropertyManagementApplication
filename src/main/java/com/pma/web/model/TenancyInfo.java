@@ -21,7 +21,6 @@ public class TenancyInfo {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "house", referencedColumnName = "house_id")
-//    @NotNull(message = "House details cannot be null")
     @Valid
     private House house;
 
@@ -45,7 +44,6 @@ public class TenancyInfo {
 
     public TenancyInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
     public TenancyInfo(long tenancyInfoID, House house, Date startDate,Date endDate) {
@@ -55,13 +53,6 @@ public class TenancyInfo {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
-	public TenancyInfo(House house ,Date startDate,Date endDate) {
-		super();
-		this.house = house;
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
 	
     public long getTenancyInfoID() {
         return tenancyInfoID;
