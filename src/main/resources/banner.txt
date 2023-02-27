@@ -1,0 +1,18 @@
+${AnsiStyle.BOLD}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}                                                                ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}   .----------------.  .----------------.  .----------------.   ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | .--------------. || .--------------. || .--------------. |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | |   ______     | || | ____    ____ | || |      __      | |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | |  |_   __ \   | || ||_   \  /   _|| || |     /  \     | |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | |    | |__) |  | || |  |   \/   |  | || |    / /\ \    | |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | |    |  ___/   | || |  | |\  /| |  | || |   / ____ \   | |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | |   _| |_      | || | _| |_\/_| |_ | || | _/ /    \ \_ | |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | |  |_____|     | || ||_____||_____|| || ||____|  |____|| |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | |              | || |              | || |              | |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  | '--------------' || '--------------' || '--------------' |  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}  '----------------'  '----------------'  '----------------'    ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.BLUE}   --.---.-.--.-- Property Management Application -.--.--.-.--. ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_BLACK}${AnsiColor.GREEN}                                                                ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiStyle.NORMAL}
+Made with Spring Boot and Thymeleaf ${AnsiBackground.BLUE}${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}${application.formatted-version}${AnsiStyle.NORMAL} ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+Spring Boot Version: ${AnsiBackground.BLUE}${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}${spring-boot.formatted-version}${AnsiStyle.NORMAL} ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}

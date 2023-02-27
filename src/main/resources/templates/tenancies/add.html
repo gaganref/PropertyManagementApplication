@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tenancies - PMA</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/default.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/house-cards.css}">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" th:href="@{/}">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher" style="transform: rotate(15deg);"></i></div>
+            <div class="sidebar-brand-text mx-3"><span>PMA</span></div>
+        </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link" th:href="@{/house/all}"><i class="fas fa-home"></i><span>Houses</span></a></li>
+                <li class="nav-item"><a class="nav-link active" th:href="@{/tenancies/all}"><i class="fas fa-table"></i><span>Tenancies</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/tenant/getall}"><i class="fas fa-users"></i><span>Tenants</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/landlord/getall}"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <div class="container-fluid">
+                <h1 class="text-dark mb-4" style="margin-top: 18px;">New Tenancy</h1>
+            </div>
+            <section>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5 align-self-center">
+                            <div class="blog-card blog-card-blog">
+                                <div class="blog-table">
+                                    <form action="#" th:action="@{/tenancies/add}" th:object="${tenancy}" method="post">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="startDate" class="col-form-label">Tenancy Start Date:</label>
+                                                <input type="date" th:field="${tenancy.startDate}" class="form-control" id="startDate"/>
+                                                <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="endDate" class="col-form-label">Tenancy End Date:</label>
+                                                <input type="date" th:field="${tenancy.endDate}" class="form-control" id="endDate"/>
+                                                <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="dropDownList" class="col-form-label">Select House</label>
+                                                <a class="info" th:href="@{/house/showAdd}"
+                                                   data-toggle="tooltip" data-placement="bottom" title="Add new house"
+                                                >
+                                                    <i class="fas fa-plus-circle text-success"></i>
+                                                </a>
+                                                <select th:field="*{house}" class="form-select" id="dropDownList">
+                                                    <option th:each="option : ${houses}" th:value="${option.getHouseID()}" th:text="${option.toString()}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <a type="button" class="btn btn-secondary" style="float: right; margin-top: 30px; margin-left: 15px;"
+                                                   th:href="@{/tenancies/all}"
+                                                >Cancel</a>
+                                                <input type="submit" class="btn btn-primary" style="float: right; margin-top: 30px;" value="Add Tenancy">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © PMA 2022</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/bs-init.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/theme.js}"></script>
+
+<script type="text/javascript">
+    function modal(e){
+        $(e).modal('toggle');
+    }
+</script>
+
+
+</body>
+
+</html>

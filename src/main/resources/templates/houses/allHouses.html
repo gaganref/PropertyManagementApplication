@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Houses - PMA</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/default.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/house-cards.css}">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" th:href="@{/}">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher" style="transform: rotate(15deg);"></i></div>
+            <div class="sidebar-brand-text mx-3"><span>PMA</span></div>
+        </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link active" th:href="@{/house/all}"><i class="fas fa-home"></i><span>Houses</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/tenancies/all}"><i class="fas fa-table"></i><span>Tenancies</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/tenant/getall}"><i class="fas fa-users"></i><span>Tenants</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/landlord/getall}"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <div class="container-fluid">
+                <h1 class="text-dark mb-4" style="margin-top: 18px;">Houses</h1>
+            </div>
+
+
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="blog-card">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div style="padding: 15px; float: left;" th:if="${#lists.isEmpty(houses)}">
+                                            <h3>No Records found. Add some...!</h3>
+                                        </div>
+                                        <div style="padding: 15px; float: right;">
+                                            <a type="button" class="btn btn-secondary"
+                                               th:href="@{/house/all}"
+                                            >Show All Houses</a>
+                                        </div>
+                                        <div style="padding: 15px; float: right;">
+                                            <a type="button" class="btn btn-primary" th:data-filterID="'#filterModal'"
+                                               onclick="modal(this.getAttribute('data-filterID'));"
+                                            >Select Filters</a>
+                                        </div>
+                                        <div style="padding: 15px; float: right;">
+                                            <a type="button" class="btn btn-success"
+                                               th:href="@{/house/showAdd}"
+                                            >+ New House</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4" th:each="house: ${houses}"  style="padding-top: 24px;">
+                            <div class="blog-card blog-card-blog">
+                                <div class="blog-card-image"><img class="img-fluid img" th:src="@{/assets/img/place-holders/house-place-holder-1.jpg}" width="263" height="195"></div>
+                                <div class="blog-table">
+                                    <h6 class="blog-category blog-text-success"><i class="fas fa-pound-sign"></i><span style="font-weight:bold" th:text="' ' + ${house.getCost()}"></span></h6>
+                                    <h4 class="blog-card-caption" style="margin: -31px 0px 8px;margin-bottom: -6px;margin-top: -26px;"></h4>
+                                    <p class="blog-card-description" style="margin-top: 40px;margin-bottom: 20px;" th:text="${house.getAddress().getStreet()} + ', ' + ${house.getAddress().getPostcode()}"></p>
+                                    <div class="ftr">
+
+                                        <a class="info" th:data-deleteID="'#deleteModal'+${house.houseID}"
+                                           onclick="modal(this.getAttribute('data-deleteID'));"
+                                        >
+                                            <div class="stats" data-toggle="tooltip" data-placement="bottom" title="Delete House">
+                                                <i class="fas fa-trash-alt" style="margin-right: 5px;margin-left: 5px;color: var(--bs-danger);"></i>
+                                            </div>
+                                        </a>
+
+                                        <a class="info" th:href="@{/house/{houseID}/edit(houseID=${house.houseID})}">
+                                            <div class="stats" data-toggle="tooltip" data-placement="bottom" title="Update Details">
+                                                <i class="fas fa-edit" style="margin-right: 5px;margin-left: 5px;color: var(--bs-warning);"></i>
+                                            </div>
+                                        </a>
+
+                                        <a class="info" th:data-viewID="'#viewModal'+${house.houseID}"
+                                           onclick="modal(this.getAttribute('data-viewID'));"
+                                        >
+                                            <div class="stats" data-toggle="tooltip" data-placement="bottom" title="View House Details">
+                                                <i class="fas fa-info-circle" style="margin-right: 5px;margin-left: 5px;"></i>
+                                            </div>
+                                        </a>
+                                        <div class="beds"><i class="fas fa-bed" style="margin-right: 3px;"></i><span th:text="${house.getNoOfRooms()}"></span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Delete Modal -->
+                                <div class="modal" th:id="'deleteModal'+${house.getHouseID()}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete this house?</h5>
+                                                <button type="button" class="close" aria-label="Close"
+                                                        th:data-deleteID="'#deleteModal'+${house.getHouseID()}"
+                                                        onclick="modal(this.getAttribute('data-deleteID'));"
+                                                >
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b>House Details</b></p><br>
+                                                <p th:text="${house.toString()}"></p><br>
+                                                <p><b>Address Details</b></p><br>
+                                                <p th:text="${house.address.toString()}"></p><br>
+                                                <p><b>Landlord Details</b></p><br>
+                                                <p th:text="${house.landlord.toString()}"></p><br>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        th:data-deleteID="'#deleteModal'+${house.getHouseID()}"
+                                                        onclick="modal(this.getAttribute('data-deleteID'));"
+                                                >Cancel</button>
+                                                <a type="button" class="btn btn-danger"
+                                                        th:href="@{/house/{houseID}/delete(houseID=${house.getHouseID()})}"
+                                                >Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- View Modal -->
+                                <div class="modal" th:id="'viewModal'+${house.getHouseID()}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="viewModalLabel">House Details</h5>
+                                                <button type="button" class="close" aria-label="Close"
+                                                        th:data-viewID="'#viewModal'+${house.getHouseID()}"
+                                                        onclick="modal(this.getAttribute('data-viewID'));"
+                                                >
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p th:text="'House ID: ' + ${house.getHouseID()}"></p>
+                                                <p th:text="'No of Rooms: ' + ${house.getNoOfRooms()}"></p>
+                                                <p th:text="'Cost per person per month: ' + ${house.getCost()}"></p>
+                                                <p><b>Address: </b></p>
+                                                <p th:if="${house.address.getFlatNo() != null}" th:text="'Flat No: ' + ${house.address.getFlatNo()}"></p>
+                                                <p th:text="'House No: ' + ${house.address.getHouseNo()}"></p>
+                                                <p th:text="'Street: ' + ${house.address.getStreet()}"></p>
+                                                <p th:text="'City: ' + ${house.address.getCity()}"></p>
+                                                <p th:text="'Postcode: ' + ${house.address.getPostcode()}"></p>
+                                                <div>
+                                                    <a type="button" class="btn btn-outline-primary"
+                                                       th:href="@{/landlord/{landlordID}(landlordID=${house.landlord.landlordId})}"
+                                                    >View Landlord</a>
+                                                    <a type="button" class="btn btn-outline-secondary"
+                                                       th:if="${house?.tenancyInfo} != null"
+                                                       th:href="@{/tenant/byTenancy/{tenancyId}(tenancyId=${house?.tenancyInfo?.getTenancyInfoID()})}"
+                                                    >View Tenants</a>
+                                                    <a type="button" class="btn btn-outline-info"
+                                                       th:if="${house?.tenancyInfo} != null"
+                                                       th:href="@{/tenancies/{tenancyId}(tenancyId=${house?.tenancyInfo?.getTenancyInfoID()})}"
+                                                    >View Tenancy</a>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"
+                                                        th:data-viewID="'#viewModal'+${house.getHouseID()}"
+                                                        onclick="modal(this.getAttribute('data-viewID'));"
+                                                >Ok</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Select Filters Modal -->
+                    <div class="modal" th:id="'filterModal'">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="filterModalLabel">Select Filter</h5>
+                                    <button type="button" class="close" aria-label="Close"
+                                            th:data-filterID="'#filterModal'"
+                                            onclick="modal(this.getAttribute('data-filterID'));"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-md-12" style="padding-bottom: 20px;">
+                                        <p><b>Filter Data by No of Rooms: </b></p>
+                                        <form class="row gy-2 gx-3 align-items-center" id="filterFormCost" name="filterFormCost" th:action="@{/house/byCost/}" method="get">
+                                            <div class="col-auto">
+                                                <label for="minCost">Minimum Cost:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="minCost" name="min">
+                                                        <option th:each="i : ${#numbers.sequence(0, 3000, 300)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==20}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label for="maxCost">Maximum Cost:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="maxCost" name="max">
+                                                        <option th:each="i : ${#numbers.sequence(0, 3000, 300)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==90}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <input type="submit" class="btn btn-primary" value="Filter by Cost">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p><b>Filter Data by Cost between: </b></p>
+                                        <form class="row gy-2 gx-3 align-items-center" id="filterFormRooms" name="filterFormCost" th:action="@{/house/byRooms/}" method="get">
+                                            <div class="col-auto">
+                                                <label for="minRooms">Minimum Rooms:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="minRooms" name="min">
+                                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==1}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label for="maxRooms">Maximum Rooms:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <select class="form-select" id="maxRooms" name="max">
+                                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"
+                                                                th:selected="${i==1}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-group col-md-12">
+                                                    <input type="submit" class="btn btn-primary" value="Filter by Rooms">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary"
+                                            th:data-filterID="'#filterModal'"
+                                            onclick="modal(this.getAttribute('data-filterID'));"
+                                    >Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © PMA 2022</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/bs-init.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/theme.js}"></script>
+
+<script type="text/javascript">
+    function modal(e){
+        $(e).modal('toggle');
+    }
+</script>
+
+
+</body>
+
+</html>

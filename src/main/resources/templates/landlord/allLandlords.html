@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Landlords - PMA</title>
+  <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+  <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome-all.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/default.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/house-cards.css}">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+  <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" th:href="@{/}">
+      <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher" style="transform: rotate(15deg);"></i></div>
+      <div class="sidebar-brand-text mx-3"><span>PMA</span></div>
+    </a>
+      <hr class="sidebar-divider my-0">
+      <ul class="navbar-nav text-light" id="accordionSidebar">
+        <li class="nav-item"><a class="nav-link" th:href="@{/house/all}"><i class="fas fa-home"></i><span>Houses</span></a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/tenancies/all}"><i class="fas fa-table"></i><span>Tenancies</span></a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/tenant/getall}"><i class="fas fa-users"></i><span>Tenants</span></a></li>
+        <li class="nav-item"><a class="nav-link active" th:href="@{/landlord/getall}"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
+      </ul>
+      <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+    </div>
+  </nav>
+  <div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+      <div class="container-fluid">
+        <h1 class="text-dark mb-4" style="margin-top: 18px;">Landlords</h1>
+      </div>
+      <div class="card shadow" style="margin: 30px 15px 60px 15px;">
+        <div class="card-header py-3">
+          <div class="row" style="padding: 15px;" th:if="${#lists.isEmpty(landlords)}">
+            <h3>No Records found. Add some...!</h3>
+          </div>
+          <div class="row">
+            <div class="col-md-6 align-self-center">
+              <p class="text-primary m-0 fw-bold">Landlords Info</p>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div style="float: right; padding-right: 15px;">
+                    <a type="button" class="btn btn-secondary"
+                       th:href="@{/landlord/getall}"
+                    >Show All Landlords</a>
+                  </div>
+                  <div style="float: right; padding-right: 15px;">
+                    <a type="button" class="btn btn-success"
+                       th:href="@{/landlord/showAdd}"
+                    >+ New Landlord</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+            <table class="table my-0" id="dataTable">
+              <thead>
+              <tr>
+                <th>ID No</th>
+                <th>Name</th>
+                <th>Email ID</th>
+                <th>Phone Number</th>
+                <th>No of Houses</th>
+                <th>Options</th>
+              </tr>
+              </thead>
+              <tbody th:each="landlord: ${landlords}">
+                <tr>
+                  <td th:text="${landlord.getLandlordId()}"></td>
+                  <td th:text="${landlord.getName()}"></td>
+                  <td th:text="${landlord.getEmailId()}"></td>
+                  <td th:text="${landlord.getPhoneNo()}"></td>
+                  <td>
+                    <span th:text="${landlord.getHouses().size()}">3</span>
+                    <a class="info" th:href="@{/house/byLandlord/{landlordID}/(landlordID=${landlord.getLandlordId()})}"
+                       data-toggle="tooltip" data-placement="bottom" title="View landlord Houses"
+                    >
+                        <i class="fas fa-arrow-circle-right text-primary"></i>
+                    </a>
+                    <a class="info" th:href="@{/house/showAdd/landlord/{landlordID}/(landlordID=${landlord.getLandlordId()})}"
+                       data-toggle="tooltip" data-placement="bottom" title="Add new house"
+                    >
+                      <i class="fas fa-plus-circle text-success"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="info" th:href="@{/landlord/{landlordID}/edit(landlordID=${landlord.landlordId})}"
+                       data-toggle="tooltip" data-placement="bottom" title="Update Details"
+                    >
+                      <i class="fas fa-edit" style="margin-right: 5px;margin-left: 5px;color: var(--bs-warning);"></i>
+                    </a>
+
+                    <a class="info" th:data-deleteID="'#deleteModal'+${landlord.landlordId}"
+                       data-toggle="tooltip" data-placement="bottom" title="Delete Landlord"
+                       onclick="modal(this.getAttribute('data-deleteID'));"
+                    >
+                      <i class="fas fa-trash-alt" style="margin-right: 5px;margin-left: 5px;color: var(--bs-danger);"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td><strong>ID No</strong></td>
+                <td><strong>Name</strong></td>
+                <td><strong>Email ID</strong></td>
+                <td><strong>Phone Number</strong></td>
+                <td><strong>No of Houses</strong></td>
+                <td><strong>Options</strong></td>
+              </tr>
+              </tfoot>
+            </table>
+
+            <div th:each="landlord: ${landlords}">
+              <!-- Delete Modal -->
+              <div class="modal" th:id="'deleteModal'+${landlord.landlordId}">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete this Landlord?</h5>
+                      <button type="button" class="close" aria-label="Close"
+                              th:data-deleteID="'#deleteModal'+${landlord.landlordId}"
+                              onclick="modal(this.getAttribute('data-deleteID'));"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p><b>This will also delete houses associated with this landlord</b></p>
+                      <p th:text="${landlord.toString()}"></p>
+                      <p><b>Houses</b></p>
+                      <p th:each="house : ${landlord.getHouses()}" th:text="${house.toString()}"></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary"
+                              th:data-deleteID="'#deleteModal'+${landlord.landlordId}"
+                              onclick="modal(this.getAttribute('data-deleteID'));"
+                      >Cancel</button>
+                      <a type="button" class="btn btn-danger"
+                         th:href="@{/landlord/{landlordID}/delete(landlordID=${landlord.landlordId})}"
+                      >Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    <footer class="bg-white sticky-footer">
+      <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © PMA 2022</span></div>
+      </div>
+    </footer>
+  </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/bs-init.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/theme.js}"></script>
+
+<script type="text/javascript">
+  function modal(e){
+    $(e).modal('toggle');
+  }
+</script>
+
+
+</body>
+
+</html>

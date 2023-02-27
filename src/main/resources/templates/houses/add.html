@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Add House - PMA</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/default.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/house-cards.css}">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" th:href="@{/}">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-chalkboard-teacher" style="transform: rotate(15deg);"></i></div>
+            <div class="sidebar-brand-text mx-3">
+                <span>PMA</span>
+            </div>
+        </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link active" th:href="@{/house/all}"><i class="fas fa-home"></i><span>Houses</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/tenancies/all}"><i class="fas fa-table"></i><span>Tenancies</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/tenant/getall}"><i class="fas fa-users"></i><span>Tenants</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/landlord/getall}"><i class="fas fa-user-cog"></i><span>Landlords</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <div class="container-fluid">
+                <h3 class="text-dark mb-4" style="margin-top: 18px;">New House</h3>
+            </div>
+
+
+            <section>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5 align-self-center">
+                            <div class="blog-card blog-card-blog">
+                                <div class="blog-table">
+                                    <form action="#" th:action="@{/house/add}" th:object="${house}" method="post">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="dropDownList" class="col-form-label">Select Landlord</label>
+                                                <a class="info" th:href="@{/landlord/showAdd}"
+                                                   data-toggle="tooltip" data-placement="bottom" title="Add new landlord"
+                                                >
+                                                    <i class="fas fa-plus-circle text-success"></i>
+                                                </a>
+                                                <select th:field="*{landlord}" class="form-select" id="dropDownList">
+                                                    <option th:each="option : ${landlords}" th:value="${option.getLandlordId()}" th:text="${option.toString()}"></option>
+                                                </select>
+                                                <span th:if="${#fields.hasErrors('landlord')}" th:errors="*{landlord}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="noOfRooms" class="col-form-label">No of Rooms</label>
+                                                <input type="text" th:field="*{noOfRooms}" class="form-control" id="noOfRooms" placeholder="1">
+                                                <span th:if="${#fields.hasErrors('noOfRooms')}" th:errors="*{noOfRooms}" class="text-danger"></span>
+<!--                                                <div class="alert alert-warning" th:if="${#fields.hasErrors('noOfRooms')}" th:errors="*{noOfRooms}"></div>-->
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="cost" class="col-form-label">Cost Per Person Per Month</label>
+                                                <input type="text" th:field="*{cost}" class="form-control" id="cost" placeholder="100.00">
+                                                <span th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="flatNo" class="col-form-label">Flat No</label>
+                                                <input type="text" th:field="*{address.flatNo}" class="form-control" id="flatNo" placeholder="1">
+                                                <span th:if="${#fields.hasErrors('address.flatNo')}" th:errors="*{address.flatNo}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="houseNo" class="col-form-label">House No</label>
+                                                <input type="text" th:field="*{address.houseNo}" class="form-control" id="houseNo" placeholder="1">
+                                                <span th:if="${#fields.hasErrors('address.houseNo')}" th:errors="*{address.houseNo}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="street" class="col-form-label">Street</label>
+                                                <input type="text" th:field="*{address.street}" class="form-control" id="street" placeholder="Street">
+                                                <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="city" class="col-form-label">City</label>
+                                                <input type="text" th:field="*{address.city}" class="form-control" id="city" placeholder="City">
+                                                <span th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="postcode" class="col-form-label">Postcode</label>
+                                                <input type="text" th:field="*{address.postcode}" class="form-control" id="postcode" placeholder="Postcode">
+                                                <span th:if="${#fields.hasErrors('address.postcode')}" th:errors="*{address.postcode}" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="form-group col-md-12">
+                                                <a type="button" class="btn btn-secondary" style="float: right; margin-top: 30px; margin-left: 15px;"
+                                                   th:href="@{/house/all}"
+                                                >Cancel</a>
+                                                <input type="submit" class="btn btn-primary" style="float: right; margin-top: 30px;" value="Add House">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © PMA 2022</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/bs-init.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/theme.js}"></script>
+
+
+</body>
+
+</html>
